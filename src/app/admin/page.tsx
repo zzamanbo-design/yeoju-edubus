@@ -8,9 +8,11 @@ import SchoolPasswordReset from "./school-password-reset";
 export default async function AdminDashboardPage() {
   const session = await getSession();
 
-  // proxy에서 보호하지만 이중 안전장치
   if (!session || session.role !== "admin") {
     redirect("/");
+  }
+  if (!session.passwordChanged) {
+    redirect("/update-password");
   }
 
   const supabase = createServerClient();

@@ -6,6 +6,7 @@ import HistoryTable from "../apply/history-table";
 export default async function HistoryPage() {
   const session = await getSession();
   if (!session) redirect("/login");
+  if (!session.passwordChanged) redirect("/update-password");
 
   // 현재 학교의 신청 내역 조회 (일반 학교인 경우에만)
   let requests: any[] = [];

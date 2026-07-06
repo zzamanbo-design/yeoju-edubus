@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Bus, LogOut, Loader2, ShieldCheck, FileText } from "lucide-react";
 import Link from "next/link";
@@ -20,6 +20,12 @@ interface Props {
 export default function GlobalHeader({ session }: Props) {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  useEffect(() => {
+    if (session) {
+      setIsLoggingOut(false);
+    }
+  }, [session]);
 
   // 세션이 없으면 헤더 숨김
   if (!session) {

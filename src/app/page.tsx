@@ -7,9 +7,11 @@ import { createServerClient } from "@/lib/supabase";
 export default async function Home() {
   const session = await getSession();
 
-  // proxy.ts에서 이미 처리하지만, 이중 안전장치
   if (!session) {
     redirect("/login");
+  }
+  if (!session.passwordChanged) {
+    redirect("/update-password");
   }
 
   const supabase = createServerClient();

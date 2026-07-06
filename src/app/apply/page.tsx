@@ -7,6 +7,7 @@ import ApplyForm from "./apply-form";
 export default async function ApplyPage() {
   const session = await getSession();
   if (!session) redirect("/login");
+  if (!session.passwordChanged) redirect("/update-password");
 
   // schools 테이블에서 학교 목록 조회
   const supabase = createServerClient();
