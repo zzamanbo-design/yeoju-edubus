@@ -1,0 +1,36 @@
+"use server";
+
+import { createServerClient } from "@/lib/supabase";
+import { getSession } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
+
+export async function approveRequest(requestId: number, contractedCost: number) {
+  const session = await getSession();
+
+  // 보안 처리: admin 권한 확인
+  if (!session || session.role !== "admin") {
+    return { success: false, error: "관리자 권한이 없습니다." };
+  }
+
+  const supabase = createServerClient();
+
+  // 해당 요청의 상태를 '승인'으로 업데이트하고 계약 금액 저장
+  const { error } = await supabase
+    .from("bus_requests")
+    .update({ 
+      status: "승인", 
+      contracted_cost: contractedCost,
+      updated_at: new Date().toISOString() 
+    })
+    .eq("id", requestId);
+
+  if (error) {
+    console.error("승인 처리 중 오류 발생:", error);
+    return { success: false, error: "승인 처리에 실패했습니다. 다시 시도해 주세요." };
+  }
+
+  // /admin 페이지의 데이터를 강제로 새로고침 (Revalidate)
+  revalidatePath("/admin");
+
+  return { success: true };
+}
