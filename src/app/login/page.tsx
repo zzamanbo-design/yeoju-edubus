@@ -37,10 +37,10 @@ export default function LoginPage() {
         router.push("/update-password");
       } else {
         // 정상 로그인 → 역할에 따라 리다이렉트
-        if (data.role === "admin") {
+        if (data.user.role === "admin") {
           router.push("/admin");
         } else {
-          router.push("/apply");
+          router.push("/");
         }
       }
       router.refresh();

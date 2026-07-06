@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { ShieldCheck, Bus, Calculator, CheckCircle2, TrendingDown, Clock, FileText } from "lucide-react";
 import AdminTableClient, { BusRequestWithSchool } from "./admin-table-client";
 import SchoolPasswordReset from "./school-password-reset";
+import BudgetEditor from "./budget-editor";
 
 export default async function AdminDashboardPage() {
   const session = await getSession();
@@ -53,11 +54,17 @@ export default async function AdminDashboardPage() {
     .select("id, school_name")
     .order("school_name");
 
-  // 예산 계산 로직
-  const TOTAL_BUDGET = 50_000_000;
+  // 예산 정보 조회 (admin_settings)
+  const { data: settingsData } = await supabase
+    .from("admin_settings")
+    .select("total_budget")
+    .eq("id", 1)
+    .single();
+
+  const TOTAL_BUDGET = settingsData?.total_budget ?? 50_000_000;
 
   // 상태가 '승인'인 내역들의 contracted_cost 합산
-  const approvedRequests = safeRequests.filter((r) => r.status === "승인");
+  const approvedRequests = safeRequests.filter((r) => r.status === "승인" || r.status === "승인완료");
   const approvedCount = approvedRequests.length;
   const usedBudget = approvedRequests.reduce((sum, req) => sum + (req.contracted_cost || 0), 0);
   
@@ -83,14 +90,8 @@ export default async function AdminDashboardPage() {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* 총 예산 */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover:scale-110" />
-              <p className="text-sm font-semibold text-slate-500 relative z-10">총 배정 예산</p>
-              <p className="text-3xl font-extrabold text-slate-800 mt-2 relative z-10">
-                {TOTAL_BUDGET.toLocaleString()} <span className="text-lg text-slate-500 font-bold">원</span>
-              </p>
-            </div>
+            {/* 총 예산 편집 컴포넌트 */}
+            <BudgetEditor initialBudget={TOTAL_BUDGET} />
 
             {/* 사용 금액 (배정 완료) */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/60 relative overflow-hidden group">

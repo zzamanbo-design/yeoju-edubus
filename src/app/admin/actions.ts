@@ -34,3 +34,29 @@ export async function approveRequest(requestId: number, contractedCost: number) 
 
   return { success: true };
 }
+
+export async function updateTotalBudget(amount: number) {
+  const session = await getSession();
+
+  if (!session || session.role !== "admin") {
+    return { success: false, error: "관리자 권한이 없습니다." };
+  }
+
+  const supabase = createServerClient();
+
+  const { error } = await supabase
+    .from("admin_settings")
+    .update({ 
+      total_budget: amount,
+      updated_at: new Date().toISOString() 
+    })
+    .eq("id", 1);
+
+  if (error) {
+    console.error("예산 수정 중 오류 발생:", error);
+    return { success: false, error: "예산 수정에 실패했습니다." };
+  }
+
+  revalidatePath("/admin");
+  return { success: true };
+}
