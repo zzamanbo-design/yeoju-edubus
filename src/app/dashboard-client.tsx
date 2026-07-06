@@ -9,8 +9,10 @@ import {
   Users,
   ChevronRight,
   Plus,
-  FileText
+  FileText,
+  Printer
 } from "lucide-react";
+import Link from "next/link";
 
 interface SessionUser {
   accountId: number;
@@ -137,9 +139,22 @@ export default function DashboardClient({
                       </div>
                     </div>
                     <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2">
-                      <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
-                        {req.status}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {(req.status === "승인" || req.status === "승인완료") && (
+                          <Link
+                            href={`/apply/print/${req.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 text-xs font-bold transition-colors shadow-sm"
+                          >
+                            <Printer className="w-3 h-3" />
+                            출력
+                          </Link>
+                        )}
+                        <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
+                          {req.status}
+                        </span>
+                      </div>
                       <span className="text-[11px] text-muted-foreground">{req.bus_type}</span>
                     </div>
                   </div>

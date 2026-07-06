@@ -5,11 +5,7 @@ import { Printer } from "lucide-react";
 
 export default function PrintTrigger() {
   useEffect(() => {
-    // 페이지 로드 후 0.5초 뒤 인쇄 대화상자 표시
-    const timer = setTimeout(() => {
-      window.print();
-    }, 500);
-    return () => clearTimeout(timer);
+    // 자동 인쇄 기능 해제됨
   }, []);
 
   return (

@@ -21,8 +21,8 @@ export default function GlobalHeader({ session }: Props) {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // 세션이 없거나 비밀번호 변경이 필요한 상태면 헤더 숨김
-  if (!session || !session.passwordChanged) {
+  // 세션이 없으면 헤더 숨김
+  if (!session) {
     return null;
   }
 
@@ -65,7 +65,7 @@ export default function GlobalHeader({ session }: Props) {
             {displayName}
           </div>
 
-          {session.role === "admin" && (
+          {session.passwordChanged && session.role === "admin" && (
             <Link
               href="/admin"
               className="text-sm font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-colors border border-indigo-100 hidden sm:block"
@@ -84,7 +84,7 @@ export default function GlobalHeader({ session }: Props) {
             ) : (
               <>
                 <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">로그아웃</span>
+                <span className="inline">로그아웃</span>
               </>
             )}
           </button>

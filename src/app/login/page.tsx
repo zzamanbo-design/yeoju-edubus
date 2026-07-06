@@ -103,7 +103,7 @@ export default function LoginPage() {
                 type="text"
                 value={loginId}
                 onChange={(e) => setLoginId(e.target.value)}
-                placeholder="예: 여주초등학교"
+                placeholder="예: OO초등학교"
                 required
                 disabled={isLoading}
                 className="w-full px-4 py-3 rounded-xl bg-white/[0.08] border border-white/[0.12] text-white placeholder-white/30 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-amber-400/60 focus:border-amber-400/40 transition-all disabled:opacity-50"
