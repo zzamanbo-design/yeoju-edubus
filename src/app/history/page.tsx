@@ -14,7 +14,7 @@ export default async function HistoryPage() {
     const supabase = createServerClient();
     const { data } = await supabase
       .from("bus_requests")
-      .select("id, trip_date, destination, bus_type, status, created_at, usage_purpose")
+      .select("id, trip_date, destination, bus_type, status, created_at, usage_purpose, report_data")
       .eq("school_id", session.schoolId)
       .order("created_at", { ascending: false });
     

@@ -17,7 +17,7 @@ export default async function Home() {
   const supabase = createServerClient();
   const { data: recentRequests } = await supabase
     .from("bus_requests")
-    .select("id, trip_date, destination, bus_type, status, created_at, teacher_count, student_count, usage_purpose, schools(school_name)")
+    .select("id, trip_date, destination, bus_type, status, created_at, teacher_count, student_count, usage_purpose, report_data, schools(school_name)")
     .eq("school_id", session.schoolId)
     .order("created_at", { ascending: false })
     .limit(5);
