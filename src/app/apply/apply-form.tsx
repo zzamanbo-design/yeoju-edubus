@@ -53,6 +53,7 @@ export default function ApplyForm({ session, schools }: Props) {
   const [usagePurpose, setUsagePurpose] = useState("");
   const [officialDocNumber, setOfficialDocNumber] = useState("");
   const [notes, setNotes] = useState("");
+  const [privacyConsent, setPrivacyConsent] = useState(false);
 
   // UI 상태
   const [isLoading, setIsLoading] = useState(false);
@@ -109,6 +110,11 @@ export default function ApplyForm({ session, schools }: Props) {
     }
     if (teacherCount + studentCount === 0) {
       setError("탑승 인원(교사 또는 학생)을 1명 이상 입력해 주세요.");
+      return;
+    }
+
+    if (!privacyConsent) {
+      setError("개인정보 수집 및 이용에 동의해 주세요.");
       return;
     }
 
@@ -552,7 +558,21 @@ export default function ApplyForm({ session, schools }: Props) {
             </div>
           )}
 
-          {/* 제출 버튼 */}
+        {/* 개인정보 동의 및 제출 버튼 영역 */}
+        <div className="pt-8 border-t border-slate-200">
+          <div className="mb-6 bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="privacy"
+              checked={privacyConsent}
+              onChange={(e) => setPrivacyConsent(e.target.checked)}
+              className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer"
+            />
+            <label htmlFor="privacy" className="text-sm text-slate-700 cursor-pointer">
+              <span className="font-bold text-blue-600">[필수]</span> 에듀버스 배차 및 안내를 위한 담당자 성명 및 연락처 수집·이용에 동의합니다.
+            </label>
+          </div>
+
           <button
             type="submit"
             disabled={isLoading || showToast}
@@ -570,6 +590,7 @@ export default function ApplyForm({ session, schools }: Props) {
               </>
             )}
           </button>
+        </div>
         </form>
       </main>
 

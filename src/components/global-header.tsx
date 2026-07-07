@@ -27,6 +27,35 @@ export default function GlobalHeader({ session }: Props) {
     }
   }, [session]);
 
+  // 30분 미활동 시 자동 로그아웃 (1800000ms)
+  useEffect(() => {
+    if (!session) return;
+
+    let timeoutId: NodeJS.Timeout;
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        handleLogout();
+      }, 1800000);
+    };
+
+    resetTimer();
+
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("mousedown", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+    window.addEventListener("touchstart", resetTimer);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("mousedown", resetTimer);
+      window.removeEventListener("keydown", resetTimer);
+      window.removeEventListener("touchstart", resetTimer);
+    };
+  }, [session]);
+
   // 세션이 없으면 헤더 숨김
   if (!session) {
     return null;

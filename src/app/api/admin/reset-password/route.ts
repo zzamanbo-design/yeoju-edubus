@@ -9,26 +9,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "권한이 없습니다." }, { status: 403 });
     }
 
-    const { schoolId } = await request.json();
-    if (!schoolId) {
-      return NextResponse.json({ error: "학교 ID가 필요합니다." }, { status: 400 });
+    const { schoolIds } = await request.json();
+    if (!Array.isArray(schoolIds) || schoolIds.length === 0) {
+      return NextResponse.json({ error: "학교를 1개 이상 선택해 주세요." }, { status: 400 });
     }
 
     const supabase = createServerClient();
-    const { data, error } = await supabase.rpc("admin_reset_school_password", {
-      p_school_id: schoolId,
-    });
+    
+    const results = await Promise.all(
+      schoolIds.map((id) =>
+        supabase.rpc("admin_reset_school_password", { p_school_id: id })
+      )
+    );
 
-    if (error) {
-      console.error("Reset password RPC error:", error);
-      return NextResponse.json({ error: "초기화 중 오류가 발생했습니다." }, { status: 500 });
+    const hasError = results.some((r) => r.error || (r.data && !r.data.success));
+    if (hasError) {
+      console.error("Reset password RPC errors:", results);
+      return NextResponse.json({ error: "일부 학교의 초기화 중 오류가 발생했습니다." }, { status: 500 });
     }
 
-    if (!data.success) {
-      return NextResponse.json({ error: data.error }, { status: 404 });
-    }
-
-    return NextResponse.json({ success: true, message: data.message });
+    return NextResponse.json({ success: true, message: `${schoolIds.length}개 기관의 비밀번호가 성공적으로 초기화되었습니다.` });
   } catch {
     return NextResponse.json({ error: "요청 처리 중 오류가 발생했습니다." }, { status: 500 });
   }

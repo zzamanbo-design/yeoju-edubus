@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
       officialDocNumber,
       departureTime,
       returnTime,
+      privacyConsent,
     } = body;
 
     // 필수 필드 검증
@@ -43,7 +44,8 @@ export async function POST(request: NextRequest) {
       !usagePurpose ||
       !officialDocNumber ||
       !departureTime ||
-      !returnTime
+      !returnTime ||
+      privacyConsent !== true
     ) {
       return NextResponse.json(
         { error: "필수 항목을 모두 입력해 주세요." },
@@ -95,6 +97,7 @@ export async function POST(request: NextRequest) {
         applicant_phone: applicantPhone,
         usage_purpose: usagePurpose,
         official_doc_number: officialDocNumber,
+        privacy_consent: privacyConsent,
         status: "신청대기",
       })
       .select("id")

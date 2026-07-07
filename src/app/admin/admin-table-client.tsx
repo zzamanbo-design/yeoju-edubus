@@ -21,6 +21,7 @@ export interface BusRequestWithSchool {
   applicant_phone: string | null;
   usage_purpose: string | null;
   official_doc_number: string | null;
+  privacy_consent: boolean;
   schools: {
     school_name: string;
   } | null;
@@ -106,8 +107,15 @@ export default function AdminTableClient({ requests }: Props) {
                   })}
                 </td>
                 <td className="px-6 py-4">
-                  <div className="font-bold text-slate-800">
-                    {req.schools?.school_name || "알 수 없음"}
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-slate-800">
+                      {req.schools?.school_name || "알 수 없음"}
+                    </span>
+                    {req.privacy_consent && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700" title="개인정보 제공 동의 완료">
+                        동의
+                      </span>
+                    )}
                   </div>
                   {(req.applicant_name || req.applicant_phone) && (
                     <div className="text-xs text-slate-500 mt-0.5">

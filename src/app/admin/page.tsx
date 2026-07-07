@@ -38,6 +38,7 @@ export default async function AdminDashboardPage() {
       applicant_phone,
       usage_purpose,
       official_doc_number,
+      privacy_consent,
       schools(school_name)
     `)
     .order("created_at", { ascending: false });
