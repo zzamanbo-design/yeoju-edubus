@@ -115,6 +115,16 @@ export default function ApplyForm({ session, schools }: Props) {
       return;
     }
 
+    if (!notes.trim()) {
+      setError("특별 요청사항(비고)을 입력해 주세요. (없을 경우 '없음'으로 기재)");
+      return;
+    }
+
+    if (!detailedOperationContent.trim()) {
+      setError("상세 운영내용을 입력해 주세요.");
+      return;
+    }
+
     if (!processConsent) {
       setError("체험버스 신청 절차와 결과보고서 제출 과정에 동의해 주세요.");
       return;
@@ -546,7 +556,7 @@ export default function ApplyForm({ session, schools }: Props) {
               className="text-sm font-bold text-foreground flex items-center gap-2 mb-3"
             >
               <StickyNote className="w-4 h-4 text-primary" />
-              특별 요청사항 (비고)
+              특별 요청사항 (비고) <span className="text-destructive">*</span>
             </label>
             <textarea
               id="notes"
@@ -554,6 +564,7 @@ export default function ApplyForm({ session, schools }: Props) {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="휠체어 탑승, 중간 경유지 등 특이사항이 있으면 적어 주세요."
               rows={3}
+              required
               disabled={isLoading}
               className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
             />
@@ -566,7 +577,7 @@ export default function ApplyForm({ session, schools }: Props) {
               className="text-sm font-bold text-foreground flex items-center gap-2 mb-3"
             >
               <FileText className="w-4 h-4 text-primary" />
-              상세 운영내용
+              상세 운영내용 <span className="text-destructive">*</span>
             </label>
             <textarea
               id="detailedOperationContent"
@@ -574,6 +585,7 @@ export default function ApplyForm({ session, schools }: Props) {
               onChange={(e) => setDetailedOperationContent(e.target.value)}
               placeholder="예시: 신륵사 탐방 및 템플스테이 활동, 신륵사 공영주차장과 남한강 출렁다리 걷기 활동 운영"
               rows={3}
+              required
               disabled={isLoading}
               className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
             />

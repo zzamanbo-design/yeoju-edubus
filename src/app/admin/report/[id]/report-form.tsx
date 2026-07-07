@@ -66,6 +66,12 @@ export default function ReportForm({ request }: ReportFormProps) {
   };
 
   const handleSave = async () => {
+    const { service_name, contractor_name, representative_name, contract_date, service_deadline, start_date, completion_date, inspection_date_report, amount } = formData;
+    if (!service_name || !contractor_name || !representative_name || !contract_date || !service_deadline || !start_date || !completion_date || !inspection_date_report || !amount) {
+      alert("모든 항목을 필수적으로 입력해주세요.");
+      return;
+    }
+
     setIsSaving(true);
     const result = await updateReportData(request.id, formData);
     setIsSaving(false);
