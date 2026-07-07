@@ -334,7 +334,6 @@ export default function ApplyForm({ session, schools }: Props) {
               <input
                 id="tripDate"
                 type="date"
-                style={{ colorScheme: "dark" }}
                 value={tripDate}
                 onChange={(e) => setTripDate(e.target.value)}
                 min={minDate}
