@@ -3,8 +3,9 @@
 import { useState, useTransition } from "react";
 import { approveRequest } from "./actions";
 import { deleteBusRequest } from "../actions/bus-requests";
-import { CheckCircle2, Clock, Loader2, Info, Trash2 } from "lucide-react";
+import { CheckCircle2, Clock, Loader2, Info, Trash2, Printer } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export interface BusRequestWithSchool {
   id: number;
@@ -182,15 +183,26 @@ export default function AdminTableClient({ requests }: Props) {
                       <span className="text-xs font-bold text-slate-600">
                         계약: {req.contracted_cost?.toLocaleString()}원
                       </span>
-                      <button
-                        onClick={() => handleDelete(req.id)}
-                        disabled={deletingId === req.id || loadingId === req.id}
-                        className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
-                        title="신청 내역 삭제"
-                      >
-                        {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                        삭제
-                      </button>
+                      <div className="flex w-full gap-2">
+                        <Link
+                          href={`/admin/print/${req.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold transition-colors border border-blue-100"
+                        >
+                          <Printer className="w-3.5 h-3.5" />
+                          학교 신청내역 출력
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(req.id)}
+                          disabled={deletingId === req.id || loadingId === req.id}
+                          className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
+                          title="신청 내역 삭제"
+                        >
+                          {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                          삭제
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center gap-2">
@@ -214,15 +226,26 @@ export default function AdminTableClient({ requests }: Props) {
                           승인
                         </button>
                       </div>
-                      <button
-                        onClick={() => handleDelete(req.id)}
-                        disabled={deletingId === req.id || loadingId === req.id}
-                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
-                        title="신청 내역 삭제"
-                      >
-                        {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                        삭제
-                      </button>
+                      <div className="flex w-full gap-2 mt-1">
+                        <Link
+                          href={`/admin/print/${req.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 text-[11px] sm:text-xs font-bold transition-colors border border-blue-100"
+                        >
+                          <Printer className="w-3.5 h-3.5" />
+                          학교 신청내역 출력
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(req.id)}
+                          disabled={deletingId === req.id || loadingId === req.id}
+                          className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
+                          title="신청 내역 삭제"
+                        >
+                          {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                          삭제
+                        </button>
+                      </div>
                     </div>
                   )}
                 </td>

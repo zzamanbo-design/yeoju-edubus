@@ -70,7 +70,6 @@ export default function HistoryTable({ requests }: Props) {
                 <th className="px-6 py-4">도착지</th>
                 <th className="px-6 py-4 text-center">버스 규격</th>
                 <th className="px-6 py-4 text-center">상태</th>
-                <th className="px-6 py-4 text-center">결과 보고서 출력</th>
                 <th className="px-6 py-4 text-center">관리</th>
               </tr>
             </thead>
@@ -104,17 +103,7 @@ export default function HistoryTable({ requests }: Props) {
                       </span>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-center">
-                    <Link
-                      href={`/apply/print/${req.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 text-xs font-bold transition-colors shadow-sm"
-                    >
-                      <Printer className="w-3.5 h-3.5" />
-                      결과 보고서 출력
-                    </Link>
-                  </td>
+
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => handleDelete(req.id)}

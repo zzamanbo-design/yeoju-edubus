@@ -40,8 +40,8 @@ export default async function PrintPage({ params }: PageProps) {
     notFound();
   }
 
-  // 본인 학교의 신청건이거나 관리자만 볼 수 있음
-  if (session.role === "school" && request.school_id !== session.schoolId) {
+  // 관리자만 볼 수 있음
+  if (session.role !== "admin") {
     redirect("/");
   }
 
@@ -128,12 +128,20 @@ export default async function PrintPage({ params }: PageProps) {
             <table className="w-full border-collapse border border-black text-sm">
               <tbody>
                 <tr>
-                  <th className="border border-black py-2 px-3 w-1/4 text-center font-normal align-middle h-32">상세 운영내용</th>
-                  <td className="border border-black py-2 px-3 w-3/4"></td>
+                  <th className="border border-black py-2 px-3 w-1/4 text-center font-normal align-middle min-h-[4rem]">상세 운영내용</th>
+                  <td className="border border-black py-2 px-3 w-3/4 text-black font-semibold whitespace-pre-wrap">{request.detailed_operation_content || ""}</td>
+                </tr>
+                <tr>
+                  <th className="border border-black py-2 px-3 w-1/4 text-center font-normal align-middle min-h-[3rem]">특별 요청사항<br />(비고)</th>
+                  <td className="border border-black py-2 px-3 w-3/4 text-black font-semibold whitespace-pre-wrap">{request.notes || ""}</td>
                 </tr>
                 <tr>
                   <th className="border border-black py-2 px-3 w-1/4 text-center font-normal">안전 서약</th>
                   <td className="border border-black py-2 px-3 w-3/4 font-semibold text-black">버스 탑승과 관련한 안전사항을 사전 확인하고 관리하겠습니다.</td>
+                </tr>
+                <tr>
+                  <th className="border border-black py-2 px-3 w-1/4 text-center font-normal">절차 확인</th>
+                  <td className="border border-black py-2 px-3 w-3/4 font-semibold text-black">체험버스 신청 절차와 결과보고서 제출 과정을 이해했습니다.</td>
                 </tr>
               </tbody>
             </table>
@@ -149,9 +157,8 @@ export default async function PrintPage({ params }: PageProps) {
           <div className="text-center whitespace-nowrap">
             <p className="font-bold text-lg">위와 같이 여주 체험버스 이용을 신청합니다.</p>
           </div>
-          <div className="text-right flex flex-col gap-2">
+          <div className="text-right">
             <p>담당자: <span className="text-black font-semibold">{request.applicant_name || ""}</span></p>
-            <p>서 명: <span className="inline-block w-12 text-right">(인)</span></p>
           </div>
         </div>
 
