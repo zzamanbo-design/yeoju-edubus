@@ -94,7 +94,7 @@ export default function DashboardClient({
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-2 h-2 mt-1.5 rounded-full bg-secondary shrink-0"></span>
-                <span>체험학습 종료 후 결과 보고서 출력하여 서명 및 상세운영내용 작성 후 제출</span>
+                <span>체험학습 종료 후 완수검사조서 출력하여 서명 및 학교 관리자 결재 후 제출</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-2 h-2 mt-1.5 rounded-full bg-secondary shrink-0"></span>
