@@ -112,7 +112,7 @@ export default function HistoryTable({ requests }: Props) {
                         href={`/apply/report/${req.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-900 text-xs font-bold transition-colors shadow-sm"
+                        className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 text-xs font-bold transition-colors shadow-sm"
                       >
                         <Printer className="w-3.5 h-3.5" />
                         완수검사조서 출력

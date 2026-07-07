@@ -65,16 +65,20 @@ export default function ReportForm({ request }: ReportFormProps) {
     }));
   };
 
-  const handleSaveAndPrint = async () => {
+  const handleSave = async () => {
     setIsSaving(true);
     const result = await updateReportData(request.id, formData);
     setIsSaving(false);
     
     if (result.success) {
-      window.print();
+      alert("완수검사조서가 저장되었습니다. 이제 학교에서 출력할 수 있습니다.");
     } else {
       alert(result.error);
     }
+  };
+
+  const handlePrint = () => {
+    window.print();
   };
 
   const hanjaAmount = formData.amount ? numberToKoreanHanja(formData.amount) : "";
@@ -91,14 +95,24 @@ export default function ReportForm({ request }: ReportFormProps) {
             <FileText className="w-6 h-6 text-indigo-600" />
             완수검사조서 작성
           </h1>
-          <button
-            onClick={handleSaveAndPrint}
-            disabled={isSaving}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-md font-bold hover:bg-slate-700 transition-colors disabled:opacity-50"
-          >
-            {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-            저장 및 출력
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-md font-bold hover:bg-slate-700 transition-colors disabled:opacity-50"
+            >
+              {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              저장
+            </button>
+            <button
+              onClick={handlePrint}
+              disabled={isSaving}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50"
+            >
+              <Printer className="w-4 h-4" />
+              출력
+            </button>
+          </div>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -144,12 +158,12 @@ export default function ReportForm({ request }: ReportFormProps) {
       </div>
 
       {/* 미리보기 및 인쇄 영역 */}
-      <div className="bg-white mx-auto print:shadow-none print:m-0 print:p-0" style={{ maxWidth: '210mm', minHeight: '297mm', padding: '20mm' }}>
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold tracking-[0.2em] mb-12">완수검사조서</h1>
+      <div className="bg-white mx-auto print:shadow-none print:m-0 print:p-0 print:h-[290mm] print:overflow-hidden" style={{ maxWidth: '210mm', minHeight: '297mm', padding: '15mm' }}>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold tracking-[0.2em] mb-10">완수검사조서</h1>
         </div>
 
-        <table className="w-full border-collapse border-2 border-black text-[15px] mb-12 text-black">
+        <table className="w-full border-collapse border-2 border-black text-[15px] mb-10 text-black">
           <colgroup>
             <col className="w-[15%]" />
             <col className="w-[35%]" />

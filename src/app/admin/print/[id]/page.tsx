@@ -54,15 +54,15 @@ export default async function PrintPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-white text-black font-sans print:bg-white print:text-black">
-      <div className="max-w-[210mm] mx-auto px-12 py-16 print:p-0 print:m-0 print:shadow-none">
+      <div className="max-w-[210mm] mx-auto px-10 py-10 print:p-0 print:m-0 print:shadow-none print:h-[290mm] print:overflow-hidden">
         
         {/* Title */}
-        <div className="text-center mb-10 pb-4 border-b border-black">
+        <div className="text-center mb-6 pb-4 border-b border-black">
           <h1 className="text-3xl font-bold tracking-widest">여주 체험버스 신청서</h1>
         </div>
 
         {/* Content */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           
           {/* 1. 학교 및 담당자 정보 */}
           <section>

@@ -80,12 +80,12 @@ export default async function SchoolReportPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-slate-50 print:bg-white flex items-center justify-center py-8 print:py-0">
-      <div className="bg-white mx-auto print:shadow-none print:m-0 print:p-0 shadow-lg" style={{ maxWidth: '210mm', minHeight: '297mm', padding: '20mm', width: '210mm' }}>
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold tracking-[0.2em] mb-12">완수검사조서</h1>
+      <div className="bg-white mx-auto print:shadow-none print:m-0 print:p-0 shadow-lg print:h-[290mm] print:overflow-hidden" style={{ maxWidth: '210mm', minHeight: '297mm', padding: '15mm', width: '210mm' }}>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold tracking-[0.2em] mb-10">완수검사조서</h1>
         </div>
 
-        <table className="w-full border-collapse border-2 border-black text-[15px] mb-12 text-black">
+        <table className="w-full border-collapse border-2 border-black text-[15px] mb-10 text-black">
           <colgroup>
             <col className="w-[15%]" />
             <col className="w-[35%]" />

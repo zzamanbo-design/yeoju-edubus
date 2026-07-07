@@ -158,7 +158,7 @@ export default function DashboardClient({
                             href={`/apply/report/${req.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-bold transition-colors shadow-sm"
+                            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 text-xs font-bold transition-colors shadow-sm"
                           >
                             <Printer className="w-3 h-3" />
                             완수검사조서
