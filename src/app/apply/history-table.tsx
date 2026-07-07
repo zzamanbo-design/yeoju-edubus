@@ -130,12 +130,18 @@ export default function HistoryTable({ requests }: Props) {
 
                   <td className="px-6 py-4 text-center">
                     <button
-                      onClick={() => req.status === "신청대기" && handleDelete(req.id)}
-                      disabled={deletingId === req.id || req.status !== "신청대기"}
+                      onClick={() => {
+                        if (req.status === "신청대기") {
+                          handleDelete(req.id);
+                        } else {
+                          alert("승인된 체험버스는 담당 주무관에게 연락하여 취소하세요.");
+                        }
+                      }}
+                      disabled={deletingId === req.id}
                       className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-colors ${
                         req.status === "신청대기" 
                           ? "bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50" 
-                          : "bg-slate-100 text-slate-400 cursor-not-allowed"
+                          : "bg-slate-100 text-slate-400 hover:bg-slate-200"
                       }`}
                       title={req.status === "신청대기" ? "신청 취소" : "승인 완료되어 취소할 수 없습니다"}
                     >
