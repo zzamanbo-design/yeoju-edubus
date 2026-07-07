@@ -53,6 +53,8 @@ export default function ApplyForm({ session, schools }: Props) {
   const [usagePurpose, setUsagePurpose] = useState("");
   const [officialDocNumber, setOfficialDocNumber] = useState("");
   const [notes, setNotes] = useState("");
+  const [detailedOperationContent, setDetailedOperationContent] = useState("");
+  const [processConsent, setProcessConsent] = useState(false);
   const [privacyConsent, setPrivacyConsent] = useState(false);
 
   // UI 상태
@@ -113,8 +115,13 @@ export default function ApplyForm({ session, schools }: Props) {
       return;
     }
 
+    if (!processConsent) {
+      setError("체험버스 신청 절차와 결과보고서 제출 과정에 동의해 주세요.");
+      return;
+    }
+
     if (!privacyConsent) {
-      setError("개인정보 수집 및 이용에 동의해 주세요.");
+      setError("체험버스 배차 및 안내를 위한 개인정보 수집·이용에 동의해 주세요.");
       return;
     }
 
@@ -140,6 +147,8 @@ export default function ApplyForm({ session, schools }: Props) {
           usagePurpose: usagePurpose.trim(),
           officialDocNumber: officialDocNumber.trim(),
           privacyConsent,
+          processConsent,
+          detailedOperationContent: detailedOperationContent.trim(),
         }),
       });
 
@@ -550,6 +559,26 @@ export default function ApplyForm({ session, schools }: Props) {
             />
           </div>
 
+          {/* 상세 운영내용 */}
+          <div className="bg-card border border-border rounded-xl p-6">
+            <label
+              htmlFor="detailedOperationContent"
+              className="text-sm font-bold text-foreground flex items-center gap-2 mb-3"
+            >
+              <FileText className="w-4 h-4 text-primary" />
+              상세 운영내용
+            </label>
+            <textarea
+              id="detailedOperationContent"
+              value={detailedOperationContent}
+              onChange={(e) => setDetailedOperationContent(e.target.value)}
+              placeholder="예시: 신륵사 탐방 및 템플스테이 활동, 신륵사 공영주차장과 남한강 출렁다리 걷기 활동 운영"
+              rows={3}
+              disabled={isLoading}
+              className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+            />
+          </div>
+
           {/* 에러 메시지 */}
           {error && (
             <div className="flex items-start gap-2 p-4 rounded-xl bg-destructive/10 border border-destructive/20">
@@ -558,19 +587,36 @@ export default function ApplyForm({ session, schools }: Props) {
             </div>
           )}
 
-        {/* 개인정보 동의 및 제출 버튼 영역 */}
+        {/* 개인정보 및 절차 동의 영역, 제출 버튼 */}
         <div className="pt-8 border-t border-slate-200">
-          <div className="mb-6 bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="privacy"
-              checked={privacyConsent}
-              onChange={(e) => setPrivacyConsent(e.target.checked)}
-              className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer"
-            />
-            <label htmlFor="privacy" className="text-sm text-slate-700 cursor-pointer">
-              <span className="font-bold text-blue-600">[필수]</span> 에듀버스 배차 및 안내를 위한 담당자 성명 및 연락처 수집·이용에 동의합니다.
-            </label>
+          <div className="mb-6 bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-4">
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="processConsent"
+                checked={processConsent}
+                onChange={(e) => setProcessConsent(e.target.checked)}
+                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
+              />
+              <label htmlFor="processConsent" className="text-sm text-slate-700 cursor-pointer">
+                <span className="font-bold text-blue-600">[필수]</span> 체험버스 신청 절차와 결과보고서 제출 과정을 이해했습니다.
+              </label>
+            </div>
+            
+            <div className="w-full h-px bg-slate-200/60 my-1"></div>
+
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="privacy"
+                checked={privacyConsent}
+                onChange={(e) => setPrivacyConsent(e.target.checked)}
+                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
+              />
+              <label htmlFor="privacy" className="text-sm text-slate-700 cursor-pointer">
+                <span className="font-bold text-blue-600">[필수]</span> 체험버스 배차 및 안내를 위한 담당자 성명 및 연락처 수집·이용에 동의합니다.
+              </label>
+            </div>
           </div>
 
           <button
