@@ -82,7 +82,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* 예산 대시보드 (Budget Tracking) */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
