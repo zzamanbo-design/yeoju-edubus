@@ -1,7 +1,9 @@
 "use client";
 
-import { CheckCircle2, Clock, Printer, FileText } from "lucide-react";
+import { useState, useTransition } from "react";
+import { CheckCircle2, Clock, Printer, FileText, Trash2, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { deleteBusRequest } from "../actions/bus-requests";
 
 interface RequestHistory {
   id: number;
@@ -18,6 +20,25 @@ interface Props {
 }
 
 export default function HistoryTable({ requests }: Props) {
+  const [isPending, startTransition] = useTransition();
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  const handleDelete = (id: number) => {
+    if (!confirm("신청을 취소하시겠습니까? 취소된 내역은 복구할 수 없습니다.")) {
+      return;
+    }
+
+    setDeletingId(id);
+    startTransition(async () => {
+      const result = await deleteBusRequest(id);
+      setDeletingId(null);
+      
+      if (!result.success) {
+        alert(result.error);
+      }
+    });
+  };
+
   if (requests.length === 0) {
     return (
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-12 text-center flex flex-col items-center mt-12 max-w-3xl mx-auto">
@@ -50,6 +71,7 @@ export default function HistoryTable({ requests }: Props) {
                 <th className="px-6 py-4 text-center">버스 규격</th>
                 <th className="px-6 py-4 text-center">상태</th>
                 <th className="px-6 py-4 text-center">출력</th>
+                <th className="px-6 py-4 text-center">관리</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -92,6 +114,17 @@ export default function HistoryTable({ requests }: Props) {
                       <Printer className="w-3.5 h-3.5" />
                       출력
                     </Link>
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <button
+                      onClick={() => handleDelete(req.id)}
+                      disabled={deletingId === req.id}
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50"
+                      title="신청 취소"
+                    >
+                      {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                      취소
+                    </button>
                   </td>
                 </tr>
               ))}
