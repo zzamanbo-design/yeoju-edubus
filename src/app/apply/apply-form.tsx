@@ -139,6 +139,7 @@ export default function ApplyForm({ session, schools }: Props) {
           applicantPhone: applicantPhone.trim(),
           usagePurpose: usagePurpose.trim(),
           officialDocNumber: officialDocNumber.trim(),
+          privacyConsent,
         }),
       });
 
