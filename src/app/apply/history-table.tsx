@@ -130,14 +130,14 @@ export default function HistoryTable({ requests }: Props) {
 
                   <td className="px-6 py-4 text-center">
                     <button
-                      onClick={() => req.status === "대기" && handleDelete(req.id)}
-                      disabled={deletingId === req.id || req.status !== "대기"}
+                      onClick={() => req.status === "신청대기" && handleDelete(req.id)}
+                      disabled={deletingId === req.id || req.status !== "신청대기"}
                       className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-colors ${
-                        req.status === "대기" 
+                        req.status === "신청대기" 
                           ? "bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50" 
                           : "bg-slate-100 text-slate-400 cursor-not-allowed"
                       }`}
-                      title={req.status === "대기" ? "신청 취소" : "승인 완료되어 취소할 수 없습니다"}
+                      title={req.status === "신청대기" ? "신청 취소" : "승인 완료되어 취소할 수 없습니다"}
                     >
                       {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
                       취소
