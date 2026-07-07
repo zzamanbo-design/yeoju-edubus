@@ -12,7 +12,8 @@ interface RequestHistory {
   bus_type: string;
   status: string;
   created_at: string;
-  usage_purpose: string;
+  usage_purpose: string | null;
+  report_data?: any;
 }
 
 interface Props {

@@ -23,6 +23,19 @@ interface SessionUser {
   passwordChanged: boolean;
 }
 
+interface BusRequest {
+  id: number;
+  destination: string;
+  usage_purpose: string;
+  teacher_count: number;
+  student_count: number;
+  trip_date: string;
+  bus_type: string;
+  status: string;
+  created_at: string;
+  report_data?: any;
+}
+
 export default function DashboardClient({ 
   session, 
   recentRequests = [] 
