@@ -60,3 +60,31 @@ export async function updateTotalBudget(amount: number) {
   revalidatePath("/admin");
   return { success: true };
 }
+
+export async function updateReportData(requestId: number, reportData: any) {
+  const session = await getSession();
+
+  if (!session || session.role !== "admin") {
+    return { success: false, error: "관리자 권한이 없습니다." };
+  }
+
+  const supabase = createServerClient();
+
+  const { error } = await supabase
+    .from("bus_requests")
+    .update({ 
+      report_data: reportData,
+      updated_at: new Date().toISOString() 
+    })
+    .eq("id", requestId);
+
+  if (error) {
+    console.error("완수검사조서 업데이트 중 오류 발생:", error);
+    return { success: false, error: "완수검사조서 저장에 실패했습니다." };
+  }
+
+  revalidatePath(`/admin/report/${requestId}`);
+  revalidatePath("/admin");
+
+  return { success: true };
+}

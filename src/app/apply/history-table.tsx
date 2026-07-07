@@ -70,6 +70,7 @@ export default function HistoryTable({ requests }: Props) {
                 <th className="px-6 py-4">도착지</th>
                 <th className="px-6 py-4 text-center">버스 규격</th>
                 <th className="px-6 py-4 text-center">상태</th>
+                <th className="px-6 py-4 text-center">출력</th>
                 <th className="px-6 py-4 text-center">관리</th>
               </tr>
             </thead>
@@ -101,6 +102,28 @@ export default function HistoryTable({ requests }: Props) {
                         <Clock className="w-3.5 h-3.5" />
                         {req.status}
                       </span>
+                    )}
+                  </td>
+
+                  <td className="px-6 py-4 text-center">
+                    {req.report_data ? (
+                      <Link
+                        href={`/apply/report/${req.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-900 text-xs font-bold transition-colors shadow-sm"
+                      >
+                        <Printer className="w-3.5 h-3.5" />
+                        완수검사조서 출력
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => alert("담당 주무관이 계약 작업중입니다.")}
+                        className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-100 text-slate-500 hover:bg-slate-200 text-xs font-bold transition-colors shadow-sm"
+                      >
+                        <Printer className="w-3.5 h-3.5" />
+                        완수검사조서 출력
+                      </button>
                     )}
                   </td>
 

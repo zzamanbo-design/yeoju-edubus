@@ -28,6 +28,7 @@ export interface BusRequestWithSchool {
     school_name: string;
   } | null;
   contracted_cost: number;
+  report_data?: any;
 }
 
 interface Props {
@@ -112,7 +113,7 @@ export default function AdminTableClient({ requests }: Props) {
               <th className="px-6 py-4 text-center">탑승 인원</th>
               <th className="px-6 py-4 text-center">버스 규격</th>
               <th className="px-6 py-4 text-center">상태</th>
-              <th className="px-6 py-4 text-center">관리</th>
+              <th className="px-6 py-4 text-center min-w-[220px]">관리</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -183,25 +184,34 @@ export default function AdminTableClient({ requests }: Props) {
                       <span className="text-xs font-bold text-slate-600">
                         계약: {req.contracted_cost?.toLocaleString()}원
                       </span>
-                      <div className="flex w-full gap-2">
+                      <div className="flex flex-col gap-2 w-full mt-2">
                         <Link
-                          href={`/admin/print/${req.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold transition-colors border border-blue-100"
+                          href={`/admin/report/${req.id}`}
+                          className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-bold transition-colors border border-indigo-100"
                         >
-                          <Printer className="w-3.5 h-3.5" />
-                          학교 신청내역 출력
+                          <Info className="w-3.5 h-3.5" />
+                          완수검사조서 작성
                         </Link>
-                        <button
-                          onClick={() => handleDelete(req.id)}
-                          disabled={deletingId === req.id || loadingId === req.id}
-                          className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
-                          title="신청 내역 삭제"
-                        >
-                          {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                          삭제
-                        </button>
+                        <div className="flex w-full gap-2">
+                          <Link
+                            href={`/admin/print/${req.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold transition-colors border border-blue-100"
+                          >
+                            <Printer className="w-3.5 h-3.5" />
+                            신청내역 출력
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(req.id)}
+                            disabled={deletingId === req.id || loadingId === req.id}
+                            className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
+                            title="신청 내역 삭제"
+                          >
+                            {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                            삭제
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -226,25 +236,34 @@ export default function AdminTableClient({ requests }: Props) {
                           승인
                         </button>
                       </div>
-                      <div className="flex w-full gap-2 mt-1">
+                      <div className="flex flex-col gap-2 w-full mt-2">
                         <Link
-                          href={`/admin/print/${req.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 text-[11px] sm:text-xs font-bold transition-colors border border-blue-100"
+                          href={`/admin/report/${req.id}`}
+                          className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-bold transition-colors border border-indigo-100"
                         >
-                          <Printer className="w-3.5 h-3.5" />
-                          학교 신청내역 출력
+                          <Info className="w-3.5 h-3.5" />
+                          완수검사조서 작성
                         </Link>
-                        <button
-                          onClick={() => handleDelete(req.id)}
-                          disabled={deletingId === req.id || loadingId === req.id}
-                          className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
-                          title="신청 내역 삭제"
-                        >
-                          {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                          삭제
-                        </button>
+                        <div className="flex w-full gap-2">
+                          <Link
+                            href={`/admin/print/${req.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 text-[11px] sm:text-xs font-bold transition-colors border border-blue-100"
+                          >
+                            <Printer className="w-3.5 h-3.5" />
+                            신청내역 출력
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(req.id)}
+                            disabled={deletingId === req.id || loadingId === req.id}
+                            className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold transition-colors disabled:opacity-50 border border-red-100"
+                            title="신청 내역 삭제"
+                          >
+                            {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                            삭제
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
