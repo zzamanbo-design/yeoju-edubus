@@ -52,7 +52,7 @@ export default function HistoryTable({ requests }: Props) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
           <FileText className="w-5 h-5 text-indigo-600" />
