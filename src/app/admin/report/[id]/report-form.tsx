@@ -91,6 +91,18 @@ export default function ReportForm({ request }: ReportFormProps) {
   const schoolName = request.schools?.school_name || "";
   const formattedTripDate = request.trip_date ? request.trip_date.replace(/-/g, ".") : "";
 
+  const isFormValid = Boolean(
+    formData.service_name &&
+    formData.contractor_name &&
+    formData.representative_name &&
+    formData.contract_date &&
+    formData.service_deadline &&
+    formData.start_date &&
+    formData.completion_date &&
+    formData.inspection_date_report &&
+    formData.amount
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       
@@ -104,8 +116,8 @@ export default function ReportForm({ request }: ReportFormProps) {
           <div className="flex gap-2">
             <button
               onClick={handleSave}
-              disabled={isSaving}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-md font-bold hover:bg-slate-700 transition-colors disabled:opacity-50"
+              disabled={isSaving || !isFormValid}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-md font-bold hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
               저장
