@@ -132,6 +132,19 @@ export default function HistoryTable({ requests }: Props) {
           </table>
         </div>
       </div>
+
+      <div className="mt-6 bg-slate-50 border border-slate-200/60 rounded-xl p-5 shadow-sm">
+        <ul className="flex flex-col gap-2 text-sm text-slate-700 font-medium">
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-indigo-500 shrink-0"></span>
+            <span>체험학습 종료 후 결과 보고서 출력하여 서명 및 상세운영내용 작성 후 제출</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-indigo-500 shrink-0"></span>
+            <span>제출은 GOE 메신저(GOE 메신저 종료 후 Britly 메신저)로 여주교육지원청 교육과 이수민 주무관에게 쪽지로 제출</span>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

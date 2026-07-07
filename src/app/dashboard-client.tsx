@@ -81,11 +81,11 @@ export default function DashboardClient({
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-2 h-2 mt-1.5 rounded-full bg-secondary shrink-0"></span>
-                <span>체험학습 종료 후 결과 보고서 출력하여 담당자 서명 및 상세운영내용 작성 후 제출</span>
+                <span>체험학습 종료 후 결과 보고서 출력하여 서명 및 상세운영내용 작성 후 제출</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-2 h-2 mt-1.5 rounded-full bg-secondary shrink-0"></span>
-                <span>제출은 GOE 메신저 (GOE 메신저 종료후 Britly 메신저) 로 여주교육지원청 교육과 이수민에게 쪽지로 제출</span>
+                <span>제출은 GOE 메신저(GOE 메신저 종료 후 Britly 메신저)로 여주교육지원청 교육과 이수민 주무관에게 쪽지로 제출</span>
               </li>
             </ul>
           </div>
