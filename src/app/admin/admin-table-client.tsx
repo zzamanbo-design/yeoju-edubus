@@ -147,7 +147,7 @@ export default function AdminTableClient({ requests }: Props) {
             <FileText className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-500 block font-medium">정산 요청</span>
+            <span className="text-xs text-slate-500 block font-medium">완수검사조서 제출 완료</span>
             <span className="text-2xl font-bold text-slate-800">{settlementCount}<span className="text-xs font-normal ml-0.5">건</span></span>
           </div>
         </div>
@@ -259,7 +259,7 @@ export default function AdminTableClient({ requests }: Props) {
                   {req.status === "승인" ? (
                     <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border ${req.report_data?.admin_checked ? "bg-indigo-50 text-indigo-700 border-indigo-100" : "bg-emerald-50 text-emerald-700 border-emerald-100"}`}>
                       {req.report_data?.admin_checked ? <FileText className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
-                      {req.report_data?.admin_checked ? "정산 요청" : "승인 완료"}
+                      {req.report_data?.admin_checked ? "완수검사조서 제출 완료" : "승인 완료"}
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-100">
