@@ -134,7 +134,7 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold w-max mb-3">학교</span>
               <h3 className="font-bold text-slate-800 mb-2">플랫폼 로그인</h3>
-              <p className="text-sm text-slate-600 mb-4 flex-grow">발급받은 학교 계정으로 로그인합니다.</p>
+              <p className="text-sm text-slate-600 mb-4 flex-grow break-keep">발급받은 학교 계정으로 로그인합니다.</p>
               <div className="bg-slate-50 border border-slate-200 rounded-md p-3 text-xs flex flex-col gap-1.5">
                 <div className="flex gap-2">
                   <span className="font-bold text-blue-800 w-12 shrink-0">ID</span>
@@ -156,8 +156,8 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold w-max mb-3">학교</span>
               <h3 className="font-bold text-slate-800 mb-2">신청서 작성</h3>
-              <p className="text-sm text-slate-600 mb-4 flex-grow">날짜·인원·행선지를 입력해 체험버스 신청서를 제출합니다.</p>
-              <div className="bg-amber-50 rounded-md p-2.5 text-xs text-amber-800 flex items-start gap-1.5 font-medium mt-auto border border-amber-200/50">
+              <p className="text-sm text-slate-600 mb-4 flex-grow break-keep">날짜·인원·행선지를 입력해 체험버스 신청서를 제출합니다.</p>
+              <div className="bg-amber-50 rounded-md p-2.5 text-xs text-amber-800 flex items-start gap-1.5 font-medium mt-auto border border-amber-200/50 break-keep">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-600" />
                 계약을 위해 최소 3주 전 신청
               </div>
@@ -172,7 +172,7 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold w-max mb-3">지원청</span>
               <h3 className="font-bold text-slate-800 mb-2">확인 및 승인</h3>
-              <p className="text-sm text-slate-600 flex-grow">지원청이 신청 내역을 확인하고 승인합니다.</p>
+              <p className="text-sm text-slate-600 flex-grow break-keep">지원청이 신청 내역을 확인하고 승인합니다.</p>
               <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
             </div>
 
@@ -184,7 +184,7 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold w-max mb-3">지원청</span>
               <h3 className="font-bold text-slate-800 mb-2">완수검사조서 작성</h3>
-              <p className="text-sm text-slate-600 flex-grow">계약 이행 확인을 위한 완수검사조서를 작성합니다.</p>
+              <p className="text-sm text-slate-600 flex-grow break-keep">계약 이행 확인을 위한 완수검사조서를 작성합니다.</p>
               <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
             </div>
 
@@ -196,7 +196,15 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold w-max mb-3">학교</span>
               <h3 className="font-bold text-slate-800 mb-2">운영 후 조서 출력</h3>
-              <p className="text-sm text-slate-600 flex-grow">체험학습을 운영하고 완수검사조서를 출력해 제출합니다.</p>
+              <p className="text-sm text-slate-600 mb-4 flex-grow break-keep">체험학습을 운영하고 완수검사조서를 출력해 제출합니다.</p>
+              
+              <div className="bg-blue-50/50 rounded-md p-2.5 text-xs text-blue-800 flex items-start gap-1.5 font-medium mt-auto border border-blue-100 break-keep">
+                <span className="leading-snug">
+                  <strong className="font-bold">제출:</strong> 여주교육지원청 교육과 이수민 주무관<br/>
+                  <span className="text-[10px] text-blue-600/80">(GOE 메신저 또는 Britly 메신저)</span>
+                </span>
+              </div>
+              
               <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
             </div>
 
@@ -208,7 +216,7 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#dca43b] text-[#1e3a8a] text-[11px] font-bold w-max mb-3">지원청</span>
               <h3 className="font-bold mb-2 text-white">정산 완료</h3>
-              <p className="text-sm text-blue-100/90 flex-grow leading-relaxed">완수검사조서를 바탕으로 지원청이 정산을 마무리합니다.</p>
+              <p className="text-sm text-blue-100/90 flex-grow leading-relaxed break-keep">완수검사조서를 바탕으로 지원청이 정산을 마무리합니다.</p>
             </div>
 
           </div>
