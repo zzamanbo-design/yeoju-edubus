@@ -43,12 +43,21 @@ export async function toggleReportSubmitted(requestId: number, isSubmitted: bool
   }
 
   const supabase = createServerClient();
-  const newStatus = isSubmitted ? "정산 요청" : "승인";
+
+  // 기존 report_data 조회
+  const { data: request } = await supabase
+    .from("bus_requests")
+    .select("report_data")
+    .eq("id", requestId)
+    .single();
+
+  const currentReportData = request?.report_data || {};
+  const newReportData = { ...currentReportData, admin_checked: isSubmitted };
 
   const { error } = await supabase
     .from("bus_requests")
     .update({ 
-      status: newStatus,
+      report_data: newReportData,
       updated_at: new Date().toISOString() 
     })
     .eq("id", requestId);

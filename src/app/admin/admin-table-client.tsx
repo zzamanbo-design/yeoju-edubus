@@ -43,8 +43,8 @@ export default function AdminTableClient({ requests }: Props) {
   const [filterStatus, setFilterStatus] = useState<"ALL" | "PENDING" | "APPROVED" | "SETTLEMENT">("ALL");
   const router = useRouter();
 
-  const handleToggleReport = (id: number, currentStatus: string) => {
-    const isSubmitted = currentStatus !== "정산 요청"; // If it's not "정산 요청", we are setting it to true
+  const handleToggleReport = (id: number, isCurrentlyChecked: boolean) => {
+    const isSubmitted = !isCurrentlyChecked;
     setLoadingId(id);
     startTransition(async () => {
       const result = await toggleReportSubmitted(id, isSubmitted);
@@ -100,14 +100,14 @@ export default function AdminTableClient({ requests }: Props) {
   };
 
   const pendingCount = requests.filter((r) => r.status.includes("대기")).length;
-  const matchedCount = requests.filter((r) => r.status === "승인" || r.status.includes("매칭")).length;
-  const settlementCount = requests.filter((r) => r.status.includes("정산")).length;
-  const totalRuns = requests.filter((r) => r.status === "승인" || r.status.includes("정산")).length;
+  const settlementCount = requests.filter((r) => r.report_data?.admin_checked).length;
+  const matchedCount = requests.filter((r) => (r.status === "승인" || r.status.includes("매칭")) && !r.report_data?.admin_checked).length;
+  const totalRuns = requests.filter((r) => r.status === "승인" || r.status.includes("매칭")).length;
 
   const filteredRequests = requests.filter(req => {
     if (filterStatus === "PENDING") return req.status.includes("대기");
-    if (filterStatus === "APPROVED") return req.status === "승인" || req.status.includes("매칭");
-    if (filterStatus === "SETTLEMENT") return req.status.includes("정산");
+    if (filterStatus === "APPROVED") return (req.status === "승인" || req.status.includes("매칭")) && !req.report_data?.admin_checked;
+    if (filterStatus === "SETTLEMENT") return req.report_data?.admin_checked;
     return true;
   });
 
@@ -253,10 +253,10 @@ export default function AdminTableClient({ requests }: Props) {
                 </td>
                 <td className="px-3 py-4">
                   <div className="flex items-center justify-center">
-                  {req.status === "승인" || req.status === "정산 요청" ? (
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border ${req.status === "정산 요청" ? "bg-indigo-50 text-indigo-700 border-indigo-100" : "bg-emerald-50 text-emerald-700 border-emerald-100"}`}>
-                      {req.status === "정산 요청" ? <FileText className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
-                      {req.status === "정산 요청" ? "정산 요청" : "승인 완료"}
+                  {req.status === "승인" ? (
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border ${req.report_data?.admin_checked ? "bg-indigo-50 text-indigo-700 border-indigo-100" : "bg-emerald-50 text-emerald-700 border-emerald-100"}`}>
+                      {req.report_data?.admin_checked ? <FileText className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                      {req.report_data?.admin_checked ? "정산 요청" : "승인 완료"}
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-100">
@@ -267,14 +267,14 @@ export default function AdminTableClient({ requests }: Props) {
                   </div>
                 </td>
                 <td className="px-3 py-4 text-center">
-                  {req.status === "승인" || req.status === "정산 요청" ? (
+                  {req.status === "승인" ? (
                     <div className="flex flex-col items-center gap-2">
                       {/* 완수검사조서 제출 체크박스 */}
                       <label className="flex items-center justify-center gap-2 text-xs font-bold text-slate-700 cursor-pointer bg-slate-50 px-2.5 py-1.5 rounded-md border border-slate-200 hover:bg-slate-100 transition-colors w-full">
                         <input
                           type="checkbox"
-                          checked={req.status === "정산 요청"}
-                          onChange={() => handleToggleReport(req.id, req.status)}
+                          checked={req.report_data?.admin_checked || false}
+                          onChange={() => handleToggleReport(req.id, req.report_data?.admin_checked || false)}
                           disabled={loadingId === req.id}
                           className="w-3.5 h-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 disabled:opacity-50 cursor-pointer"
                         />
