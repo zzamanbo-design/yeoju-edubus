@@ -10,7 +10,14 @@ import {
   ChevronRight,
   Plus,
   FileText,
-  Printer
+  Printer,
+  ArrowRight,
+  LogIn,
+  Edit3,
+  CheckCircle2,
+  ClipboardCheck,
+  Calculator,
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 
@@ -101,6 +108,109 @@ export default function DashboardClient({
                 <span>제출은 GOE 메신저(GOE 메신저 종료 후 Britly 메신저)로 여주교육지원청 교육과 이수민 주무관에게 쪽지로 제출</span>
               </li>
             </ul>
+          </div>
+        </section>
+
+        {/* 체험버스 신청 단계 */}
+        <section className="flex flex-col gap-4">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-7 h-7 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-sm">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+            <h2 className="text-xl font-bold">신청부터 정산까지, 6단계면 끝</h2>
+            <div className="ml-auto flex items-center gap-4 text-sm font-semibold">
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-blue-600"></span>학교</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-amber-700"></span>지원청</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3">
+            
+            {/* 1 */}
+            <div className="relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm border-t-4 border-t-blue-600 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-serif font-bold text-blue-200">01</span>
+                <LogIn className="w-5 h-5 text-blue-600" />
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold w-max mb-3">학교</span>
+              <h3 className="font-bold text-slate-800 mb-2">플랫폼 로그인</h3>
+              <p className="text-sm text-slate-600 mb-4 flex-grow">발급받은 학교 계정으로 로그인합니다.</p>
+              <div className="bg-slate-50 border border-slate-200 rounded-md p-3 text-xs flex flex-col gap-1.5">
+                <div className="flex gap-2">
+                  <span className="font-bold text-blue-800 w-12 shrink-0">ID</span>
+                  <span className="text-slate-600">학교명<br/>(##초등학교)</span>
+                </div>
+                <div className="flex gap-2 items-center mt-1">
+                  <span className="font-bold text-blue-800 w-12 shrink-0">임시 PW</span>
+                  <span className="text-slate-600">yeoju2026!</span>
+                </div>
+              </div>
+              <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
+            </div>
+
+            {/* 2 */}
+            <div className="relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm border-t-4 border-t-blue-600 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-serif font-bold text-blue-200">02</span>
+                <Edit3 className="w-5 h-5 text-blue-600" />
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold w-max mb-3">학교</span>
+              <h3 className="font-bold text-slate-800 mb-2">신청서 작성</h3>
+              <p className="text-sm text-slate-600 mb-4 flex-grow">날짜·인원·행선지를 입력해 체험버스 신청서를 제출합니다.</p>
+              <div className="bg-amber-50 rounded-md p-2.5 text-xs text-amber-800 flex items-start gap-1.5 font-medium mt-auto border border-amber-200/50">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-600" />
+                계약을 위해 최소 3주 전 신청
+              </div>
+              <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
+            </div>
+
+            {/* 3 */}
+            <div className="relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm border-t-4 border-t-amber-700 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-serif font-bold text-amber-200">03</span>
+                <CheckCircle2 className="w-5 h-5 text-amber-700" />
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold w-max mb-3">지원청</span>
+              <h3 className="font-bold text-slate-800 mb-2">확인 및 승인</h3>
+              <p className="text-sm text-slate-600 flex-grow">지원청이 신청 내역을 확인하고 승인합니다.</p>
+              <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
+            </div>
+
+            {/* 4 */}
+            <div className="relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm border-t-4 border-t-amber-700 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-serif font-bold text-amber-200">04</span>
+                <ClipboardCheck className="w-5 h-5 text-amber-700" />
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold w-max mb-3">지원청</span>
+              <h3 className="font-bold text-slate-800 mb-2">완수검사조서 작성</h3>
+              <p className="text-sm text-slate-600 flex-grow">계약 이행 확인을 위한 완수검사조서를 작성합니다.</p>
+              <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
+            </div>
+
+            {/* 5 */}
+            <div className="relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm border-t-4 border-t-blue-600 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-serif font-bold text-blue-200">05</span>
+                <Printer className="w-5 h-5 text-blue-600" />
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold w-max mb-3">학교</span>
+              <h3 className="font-bold text-slate-800 mb-2">운영 후 조서 출력</h3>
+              <p className="text-sm text-slate-600 flex-grow">체험학습을 운영하고 완수검사조서를 출력해 제출합니다.</p>
+              <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
+            </div>
+
+            {/* 6 */}
+            <div className="relative bg-[#2f5597] border border-[#2f5597] rounded-xl p-5 shadow-sm flex flex-col h-full text-white">
+              <div className="flex justify-between items-start mb-3">
+                <span className="text-3xl font-serif font-bold text-blue-300/40">06</span>
+                <Calculator className="w-5 h-5 text-amber-400" />
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#dca43b] text-[#1e3a8a] text-[11px] font-bold w-max mb-3">지원청</span>
+              <h3 className="font-bold mb-2 text-white">정산 완료</h3>
+              <p className="text-sm text-blue-100/90 flex-grow leading-relaxed">완수검사조서를 바탕으로 지원청이 정산을 마무리합니다.</p>
+            </div>
+
           </div>
         </section>
 
