@@ -15,12 +15,17 @@ export default async function Home() {
   }
 
   const supabase = createServerClient();
-  const { data: recentRequests } = await supabase
+  let query = supabase
     .from("bus_requests")
     .select("id, trip_date, destination, bus_type, status, created_at, teacher_count, student_count, usage_purpose, report_data, schools(school_name)")
-    .eq("school_id", session.schoolId)
     .order("created_at", { ascending: false })
     .limit(5);
+
+  if (session.role !== "admin") {
+    query = query.eq("school_id", session.schoolId);
+  }
+
+  const { data: recentRequests } = await query;
 
   return <DashboardClient session={session} recentRequests={recentRequests || []} />;
 }

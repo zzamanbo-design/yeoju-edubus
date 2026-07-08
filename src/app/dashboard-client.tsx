@@ -115,7 +115,7 @@ export default function DashboardClient({
                 최근 신청 및 운행 내역
               </h2>
               <button 
-                onClick={() => router.push("/history")}
+                onClick={() => router.push(session.role === "admin" ? "/admin" : "/history")}
                 className="text-xs font-semibold text-primary hover:underline flex items-center gap-0.5"
               >
                 전체보기
@@ -138,7 +138,14 @@ export default function DashboardClient({
                         <Bus className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sm sm:text-base">{req.destination}</h3>
+                        <h3 className="font-semibold text-sm sm:text-base flex items-center gap-2">
+                          {session.role === "admin" && (
+                            <span className="px-2 py-0.5 bg-slate-100 text-slate-700 text-xs rounded-md">
+                              {req.schools?.school_name || "알 수 없음"}
+                            </span>
+                          )}
+                          {req.destination}
+                        </h3>
                         <p className="text-xs text-muted-foreground flex flex-wrap gap-x-2 gap-y-1 mt-1">
                           <span className="inline-flex items-center gap-0.5">
                             <Users className="w-3.5 h-3.5" /> 
