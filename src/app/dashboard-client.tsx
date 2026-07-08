@@ -329,12 +329,12 @@ export default function DashboardClient({
               </h3>
               <div className="text-sm flex flex-col gap-3 text-muted-foreground">
                 <div>
-                  <span className="block font-bold text-foreground text-xs mb-1">장학사 정지범</span>
-                  <p>031-880-2332</p>
+                  <span className="block font-bold text-foreground text-xs mb-1">장학사 정지범 (031-880-2332)</span>
+                  <span className="block font-bold text-foreground text-xs mb-1">주무관 이수민 (031-880-2331)</span>
                 </div>
                 <div>
                   <span className="block font-bold text-foreground text-xs mb-1">이메일</span>
-                  <p className="text-xs">zamanbo@korea.kr<br/>leesumin5643@korea.kr</p>
+                  <p className="text-xs">zamanbo@korea.kr (장학사 정지범)<br/>leesumin5643@korea.kr (주무관 이수민)</p>
                 </div>
               </div>
             </div>
