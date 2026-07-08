@@ -39,6 +39,7 @@ export default async function AdminDashboardPage() {
       usage_purpose,
       official_doc_number,
       privacy_consent,
+      report_data,
       schools(school_name)
     `)
     .order("created_at", { ascending: false });

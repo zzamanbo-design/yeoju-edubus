@@ -151,13 +151,16 @@ export default function AdminTableClient({ requests }: Props) {
             <span className="text-2xl font-bold text-slate-800">{settlementCount}<span className="text-xs font-normal ml-0.5">건</span></span>
           </div>
         </div>
-        <div className="bg-white border border-slate-200/60 p-5 rounded-xl flex items-center gap-4 transition-all">
+        <div 
+          onClick={() => setFilterStatus("ALL")}
+          className={`bg-white border p-5 rounded-xl flex items-center gap-4 transition-all hover:shadow-md cursor-pointer ${filterStatus === "ALL" ? "border-emerald-500 ring-2 ring-emerald-200" : "border-slate-200/60"}`}
+        >
           <div className="p-3 rounded-lg bg-emerald-50 text-emerald-600">
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-500 block font-medium">누적 운행</span>
-            <span className="text-2xl font-bold text-slate-800">{totalRuns}<span className="text-xs font-normal ml-0.5">회</span></span>
+            <span className="text-xs text-slate-500 block font-medium">누적 운행 (전체)</span>
+            <span className="text-2xl font-bold text-slate-800">{requests.length}<span className="text-xs font-normal ml-0.5">건</span></span>
           </div>
         </div>
       </div>
