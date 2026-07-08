@@ -562,7 +562,7 @@ export default function ApplyForm({ session, schools }: Props) {
               id="notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="휠체어 탑승, 중간 경유지 등 특이사항이 있으면 적어 주세요."
+              placeholder={`버스 2대 이상 신청 시 입력, 휠체어 탑승 및 지원 필요 내용 기입, 중간 경유지 및 취식 등의 요청 기입, 2일 이상 대여 시 기입 등\n특이사항 없을 시: 특이사항 없음 입력`}
               rows={3}
               required
               disabled={isLoading}
