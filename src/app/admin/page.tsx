@@ -72,12 +72,7 @@ export default async function AdminDashboardPage() {
   const remainingBudget = TOTAL_BUDGET - usedBudget;
   const usagePercentage = Math.min((usedBudget / TOTAL_BUDGET) * 100, 100);
 
-  // 학교에서 이관된 4가지 주요 통계 계산
-  const pendingCount = safeRequests.filter((r) => r.status.includes("대기")).length;
-  const matchedCount = safeRequests.filter((r) => r.status === "승인" || r.status.includes("매칭")).length;
-  const settlementCount = safeRequests.filter((r) => r.status.includes("정산")).length;
-  // 임시로 승인/정산된 건을 누적 운행으로 계산 (실제로는 운행 완료된 건수)
-  const totalRuns = safeRequests.filter((r) => r.status === "승인" || r.status.includes("정산")).length;
+
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
@@ -125,65 +120,11 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* 4가지 주요 접수 통계 현황 */}
-        <div className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white border border-slate-200/60 p-5 rounded-xl flex items-center gap-4 transition-all hover:shadow-md">
-            <div className="p-3 rounded-lg bg-amber-50 text-amber-600">
-              <Clock className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-slate-500 block font-medium">신청 대기</span>
-              <span className="text-2xl font-bold text-slate-800">{pendingCount}<span className="text-xs font-normal ml-0.5">건</span></span>
-            </div>
-          </div>
-          <div className="bg-white border border-slate-200/60 p-5 rounded-xl flex items-center gap-4 transition-all hover:shadow-md">
-            <div className="p-3 rounded-lg bg-blue-50 text-blue-600">
-              <Bus className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-slate-500 block font-medium">매칭 완료</span>
-              <span className="text-2xl font-bold text-slate-800">{matchedCount}<span className="text-xs font-normal ml-0.5">건</span></span>
-            </div>
-          </div>
-          <div className="bg-white border border-slate-200/60 p-5 rounded-xl flex items-center gap-4 transition-all hover:shadow-md">
-            <div className="p-3 rounded-lg bg-indigo-50 text-indigo-600">
-              <FileText className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-slate-500 block font-medium">정산 요청</span>
-              <span className="text-2xl font-bold text-slate-800">{settlementCount}<span className="text-xs font-normal ml-0.5">건</span></span>
-            </div>
-          </div>
-          <div className="bg-white border border-slate-200/60 p-5 rounded-xl flex items-center gap-4 transition-all hover:shadow-md">
-            <div className="p-3 rounded-lg bg-emerald-50 text-emerald-600">
-              <CheckCircle2 className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-slate-500 block font-medium">누적 운행</span>
-              <span className="text-2xl font-bold text-slate-800">{totalRuns}<span className="text-xs font-normal ml-0.5">회</span></span>
-            </div>
-          </div>
-        </div>
-
         {/* 학교 비밀번호 초기화 */}
         <SchoolPasswordReset schools={schoolsData || []} />
 
-        {/* 버스 신청 내역 */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <Bus className="w-5 h-5 text-indigo-600" />
-              관내 학교 버스 신청 내역
-            </h2>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-600 text-xs font-bold shadow-sm">
-                전체 {safeRequests.length}건
-              </span>
-            </div>
-          </div>
-          
-          <AdminTableClient requests={safeRequests} />
-        </div>
+        {/* 버스 신청 내역 및 통계 (Client Component) */}
+        <AdminTableClient requests={safeRequests} />
       </main>
     </div>
   );

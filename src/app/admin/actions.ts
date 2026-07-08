@@ -35,6 +35,33 @@ export async function approveRequest(requestId: number, contractedCost: number) 
   return { success: true };
 }
 
+export async function toggleReportSubmitted(requestId: number, isSubmitted: boolean) {
+  const session = await getSession();
+  
+  if (!session || session.role !== "admin") {
+    return { success: false, error: "관리자 권한이 없습니다." };
+  }
+
+  const supabase = createServerClient();
+  const newStatus = isSubmitted ? "정산 요청" : "승인";
+
+  const { error } = await supabase
+    .from("bus_requests")
+    .update({ 
+      status: newStatus,
+      updated_at: new Date().toISOString() 
+    })
+    .eq("id", requestId);
+
+  if (error) {
+    console.error("정산 요청 상태 업데이트 실패:", error);
+    return { success: false, error: "상태 업데이트에 실패했습니다." };
+  }
+
+  revalidatePath("/admin");
+  return { success: true };
+}
+
 export async function updateTotalBudget(amount: number) {
   const session = await getSession();
 
