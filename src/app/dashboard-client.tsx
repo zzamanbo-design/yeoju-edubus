@@ -43,12 +43,19 @@ interface BusRequest {
   report_data?: any;
 }
 
+interface BudgetInfo {
+  usedCount: number;
+  availableCount: number;
+}
+
 export default function DashboardClient({ 
   session, 
-  recentRequests = [] 
+  recentRequests = [],
+  budgetInfo = { usedCount: 0, availableCount: 0 }
 }: { 
   session: SessionUser;
   recentRequests?: any[];
+  budgetInfo?: BudgetInfo;
 }) {
   const router = useRouter();
 
@@ -62,24 +69,61 @@ export default function DashboardClient({
           <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-12 translate-y-12">
             <Bus className="w-96 h-96" />
           </div>
-          <div className="relative z-10 max-w-2xl flex flex-col gap-4">
-            <span className="inline-flex self-start items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary text-secondary-foreground shadow-sm">
-              ✨ 2026학년도 체험학습 접수 중
-            </span>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-              여주 관내 학교들의<br className="sm:hidden" /> 안전한 체험학습 이동을 지원합니다.
-            </h1>
-            <p className="text-primary-foreground/90 text-base md:text-lg font-medium leading-relaxed">
-              체험버스를 신청하고, 매칭 현황을 실시간으로 확인하며, 체험학습 종료 후 운행 보고까지 원스톱으로 편리하게 진행하세요.
-            </p>
-            <div className="flex flex-wrap gap-3 mt-4">
-              <button
-                onClick={() => router.push("/apply")}
-                className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-xl text-lg shadow-md hover:bg-secondary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <Plus className="w-5 h-5" />
-                여주 체험버스 신청
-              </button>
+          
+          <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-8">
+            <div className="max-w-2xl flex flex-col gap-4">
+              <span className="inline-flex self-start items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary text-secondary-foreground shadow-sm">
+                ✨ 2026학년도 체험학습 접수 중
+              </span>
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+                여주 관내 학교들의<br className="sm:hidden" /> 안전한 체험학습 이동을 지원합니다.
+              </h1>
+              <p className="text-primary-foreground/90 text-base md:text-lg font-medium leading-relaxed">
+                체험버스를 신청하고, 매칭 현황을 실시간으로 확인하며, 체험학습 종료 후 운행 보고까지 원스톱으로 편리하게 진행하세요.
+              </p>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <button
+                  onClick={() => router.push("/apply")}
+                  className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-xl text-lg shadow-md hover:bg-secondary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <Plus className="w-5 h-5" />
+                  여주 체험버스 신청
+                </button>
+              </div>
+            </div>
+
+            {/* 파이 차트 UI */}
+            <div className="flex-shrink-0 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 flex flex-col items-center">
+              <h3 className="text-sm font-bold text-blue-50 mb-4">대략적 버스 운영 횟수</h3>
+              <div className="relative w-32 h-32 mb-4">
+                <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+                  {/* Background Circle (Available) */}
+                  <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="rgba(255,255,255,0.2)" strokeWidth="4"></circle>
+                  
+                  {/* Foreground Circle (Used) */}
+                  <circle 
+                    cx="18" 
+                    cy="18" 
+                    r="15.9155" 
+                    fill="transparent" 
+                    stroke="#fbbf24" // amber-400
+                    strokeWidth="4" 
+                    strokeDasharray={`${budgetInfo.usedCount + budgetInfo.availableCount > 0 ? (budgetInfo.usedCount / (budgetInfo.usedCount + budgetInfo.availableCount)) * 100 : 0} ${budgetInfo.usedCount + budgetInfo.availableCount > 0 ? 100 - (budgetInfo.usedCount / (budgetInfo.usedCount + budgetInfo.availableCount)) * 100 : 100}`}
+                    strokeDashoffset="0"
+                    strokeLinecap="round"
+                  ></circle>
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span className="text-xs text-blue-200">운영/가능</span>
+                  <span className="text-xl font-bold font-serif leading-tight">
+                    {budgetInfo.usedCount}<span className="text-sm text-blue-200">/{budgetInfo.availableCount}</span>
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 text-xs font-medium">
+                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>이용됨</div>
+                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-white/30"></span>가능</div>
+              </div>
             </div>
           </div>
         </section>
@@ -106,6 +150,10 @@ export default function DashboardClient({
               <li className="flex items-start gap-2">
                 <span className="w-2 h-2 mt-1.5 rounded-full bg-secondary shrink-0"></span>
                 <span>제출은 GOE 메신저(GOE 메신저 종료 후 Britly 메신저)로 여주교육지원청 교육과 이수민 주무관에게 쪽지로 제출</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="w-2 h-2 mt-1.5 rounded-full bg-secondary shrink-0"></span>
+                <span className="text-amber-600 font-semibold break-keep">승인 전 취소는 웹페이지에서 가능하며, 승인 이후 웹페이지에서 취소가 불가능하니 담당 주무관에게 연락하여 취소하세요.</span>
               </li>
             </ul>
           </div>
@@ -184,7 +232,11 @@ export default function DashboardClient({
               </div>
               <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold w-max mb-3">지원청</span>
               <h3 className="font-bold text-slate-800 mb-2">완수검사조서 작성</h3>
-              <p className="text-sm text-slate-600 flex-grow break-keep">계약 이행 확인을 위한 완수검사조서를 작성합니다.</p>
+              <p className="text-sm text-slate-600 flex-grow break-keep mb-3">계약 이행 확인을 위한 완수검사조서를 작성합니다.</p>
+              <div className="bg-amber-50 rounded-md p-2 text-[11px] text-amber-800 flex items-start gap-1 font-medium mt-auto border border-amber-200/50 break-keep">
+                <AlertCircle className="w-3 h-3 shrink-0 mt-0.5 text-amber-600" />
+                완수검사조서는 체험버스 이용 2-3일 전 확인 가능하며 늦어질 수 있습니다.
+              </div>
               <ArrowRight className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5 z-10" />
             </div>
 

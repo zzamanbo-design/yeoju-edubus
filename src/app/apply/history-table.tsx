@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { CheckCircle2, Clock, Printer, FileText, Trash2, Loader2 } from "lucide-react";
+import { CheckCircle2, Clock, Printer, FileText, Trash2, Loader2, Edit3 } from "lucide-react";
 import Link from "next/link";
 import { deleteBusRequest } from "../actions/bus-requests";
 
@@ -129,25 +129,47 @@ export default function HistoryTable({ requests }: Props) {
                   </td>
 
                   <td className="px-6 py-4 text-center">
-                    <button
-                      onClick={() => {
-                        if (req.status === "신청대기") {
-                          handleDelete(req.id);
-                        } else {
-                          alert("승인된 체험버스는 담당 주무관에게 연락하여 취소하세요.");
-                        }
-                      }}
-                      disabled={deletingId === req.id}
-                      className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-colors ${
-                        req.status === "신청대기" 
-                          ? "bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50" 
-                          : "bg-slate-100 text-slate-400 hover:bg-slate-200"
-                      }`}
-                      title={req.status === "신청대기" ? "신청 취소" : "승인 완료되어 취소할 수 없습니다"}
-                    >
-                      {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                      취소
-                    </button>
+                    <div className="flex items-center justify-center gap-2">
+                      {req.status === "신청대기" ? (
+                        <Link
+                          href={`/apply/edit/${req.id}`}
+                          className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
+                          title="신청 내용 수정"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                          수정
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => alert("승인이 완료된 경우 웹페이지에서 수정이 불가능하니 담당 주무관에게 연락해주세요.")}
+                          className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-colors bg-slate-100 text-slate-400 hover:bg-slate-200"
+                          title="수정 불가"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                          수정
+                        </button>
+                      )}
+                      
+                      <button
+                        onClick={() => {
+                          if (req.status === "신청대기") {
+                            handleDelete(req.id);
+                          } else {
+                            alert("승인된 체험버스는 담당 주무관에게 연락하여 취소하세요.");
+                          }
+                        }}
+                        disabled={deletingId === req.id}
+                        className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-colors ${
+                          req.status === "신청대기" 
+                            ? "bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50" 
+                            : "bg-slate-100 text-slate-400 hover:bg-slate-200"
+                        }`}
+                        title={req.status === "신청대기" ? "신청 취소" : "승인 완료되어 취소할 수 없습니다"}
+                      >
+                        {deletingId === req.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                        취소
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

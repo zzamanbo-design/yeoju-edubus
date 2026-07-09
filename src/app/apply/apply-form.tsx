@@ -33,29 +33,30 @@ interface Props {
     role: "school" | "admin";
   };
   schools: SchoolItem[];
+  initialData?: any;
 }
 
-export default function ApplyForm({ session, schools }: Props) {
+export default function ApplyForm({ session, schools, initialData }: Props) {
   const router = useRouter();
 
   // 폼 상태
-  const [schoolId, setSchoolId] = useState<number>(session.schoolId ?? 0);
-  const [tripDate, setTripDate] = useState("");
-  const [departure, setDeparture] = useState("");
-  const [departureTime, setDepartureTime] = useState("");
-  const [destination, setDestination] = useState("");
-  const [returnTime, setReturnTime] = useState("");
-  const [teacherCount, setTeacherCount] = useState(0);
-  const [studentCount, setStudentCount] = useState(0);
-  const [busType, setBusType] = useState<"중형" | "대형">("대형");
-  const [applicantName, setApplicantName] = useState("");
-  const [applicantPhone, setApplicantPhone] = useState("");
-  const [usagePurpose, setUsagePurpose] = useState("");
-  const [officialDocNumber, setOfficialDocNumber] = useState("");
-  const [notes, setNotes] = useState("");
-  const [detailedOperationContent, setDetailedOperationContent] = useState("");
-  const [processConsent, setProcessConsent] = useState(false);
-  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [schoolId, setSchoolId] = useState<number>(initialData?.school_id ?? session.schoolId ?? 0);
+  const [tripDate, setTripDate] = useState(initialData?.trip_date ?? "");
+  const [departure, setDeparture] = useState(initialData?.departure ?? "");
+  const [departureTime, setDepartureTime] = useState(initialData?.departure_time ?? "");
+  const [destination, setDestination] = useState(initialData?.destination ?? "");
+  const [returnTime, setReturnTime] = useState(initialData?.return_time ?? "");
+  const [teacherCount, setTeacherCount] = useState(initialData?.teacher_count ?? 0);
+  const [studentCount, setStudentCount] = useState(initialData?.student_count ?? 0);
+  const [busType, setBusType] = useState<"중형" | "대형">(initialData?.bus_type ?? "대형");
+  const [applicantName, setApplicantName] = useState(initialData?.applicant_name ?? "");
+  const [applicantPhone, setApplicantPhone] = useState(initialData?.applicant_phone ?? "");
+  const [usagePurpose, setUsagePurpose] = useState(initialData?.usage_purpose ?? "");
+  const [officialDocNumber, setOfficialDocNumber] = useState(initialData?.official_doc_number ?? "");
+  const [notes, setNotes] = useState(initialData?.notes ?? "");
+  const [detailedOperationContent, setDetailedOperationContent] = useState(initialData?.detailed_operation_content ?? "");
+  const [processConsent, setProcessConsent] = useState(!!initialData);
+  const [privacyConsent, setPrivacyConsent] = useState(!!initialData);
 
   // UI 상태
   const [isLoading, setIsLoading] = useState(false);
@@ -138,8 +139,12 @@ export default function ApplyForm({ session, schools }: Props) {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/bus-requests", {
-        method: "POST",
+      const isEdit = !!initialData?.id;
+      const url = isEdit ? `/api/bus-requests/${initialData.id}` : "/api/bus-requests";
+      const method = isEdit ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           schoolId,
@@ -208,10 +213,10 @@ export default function ApplyForm({ session, schools }: Props) {
             <div className="p-2 rounded-lg bg-primary/10 text-primary">
               <Send className="w-6 h-6" />
             </div>
-            신규 체험버스 신청
+            {initialData ? "체험버스 신청 내역 수정" : "신규 체험버스 신청"}
           </h1>
           <p className="text-sm text-muted-foreground mt-2 ml-[52px]">
-            체험학습 버스 배차를 신청합니다. 모든 필수 항목을 정확히 입력해 주세요.
+            {initialData ? "제출하신 체험학습 버스 배차 내역을 수정합니다." : "체험학습 버스 배차를 신청합니다. 모든 필수 항목을 정확히 입력해 주세요."}
           </p>
         </div>
 
@@ -639,12 +644,12 @@ export default function ApplyForm({ session, schools }: Props) {
             {isLoading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                신청 접수 중...
+                {initialData ? "수정 접수 중..." : "신청 접수 중..."}
               </>
             ) : (
               <>
                 <Send className="w-5 h-5" />
-                체험버스 신청하기
+                {initialData ? "수정 완료하기" : "체험버스 신청하기"}
               </>
             )}
           </button>
