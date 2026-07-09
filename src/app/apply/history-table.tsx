@@ -64,7 +64,7 @@ export default function HistoryTable({ requests }: Props) {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-slate-50/80 border-b border-slate-200/60 text-slate-600 font-semibold">
+            <thead className="bg-slate-50/80 border-b border-slate-200/60 text-slate-600 font-semibold whitespace-nowrap">
               <tr>
                 <th className="px-6 py-4">신청일자</th>
                 <th className="px-6 py-4">이용내용</th>
@@ -77,7 +77,7 @@ export default function HistoryTable({ requests }: Props) {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {requests.map((req) => (
-                <tr key={req.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={req.id} className="hover:bg-slate-50/50 transition-colors whitespace-nowrap">
                   <td className="px-6 py-4 font-medium text-slate-700">
                     {new Date(req.created_at).toLocaleDateString("ko-KR")}
                   </td>

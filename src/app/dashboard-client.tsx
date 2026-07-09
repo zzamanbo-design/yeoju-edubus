@@ -94,7 +94,7 @@ export default function DashboardClient({
 
             {/* 파이 차트 UI */}
             <div className="flex-shrink-0 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 flex flex-col items-center">
-              <h3 className="text-sm font-bold text-blue-50 mb-4">대략적 버스 운영 횟수</h3>
+              <h3 className="text-sm font-bold text-blue-50 mb-4">체험버스 운영 상황</h3>
               <div className="relative w-32 h-32 mb-4">
                 <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
                   {/* Background Circle (Available) */}
