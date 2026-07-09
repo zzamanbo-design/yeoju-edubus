@@ -137,39 +137,39 @@ export default function ReportForm({ request }: ReportFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">용역명</label>
-              <input type="text" name="service_name" value={formData.service_name} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" />
+              <input type="text" name="service_name" value={formData.service_name} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">계약금액 (원)</label>
-              <input type="text" name="amount" value={formData.amount} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" />
+              <input type="text" name="amount" value={formData.amount} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">계약자</label>
-              <input type="text" name="contractor_name" value={formData.contractor_name} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" placeholder="예: ㈜가나다관광" />
+              <input type="text" name="contractor_name" value={formData.contractor_name} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="예: ㈜가나다관광" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">대표</label>
-              <input type="text" name="representative_name" value={formData.representative_name} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" placeholder="예: 홍길동" />
+              <input type="text" name="representative_name" value={formData.representative_name} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="예: 홍길동" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">계약일 (YYYY.MM.DD)</label>
-              <input type="text" name="contract_date" value={formData.contract_date} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" />
+              <input type="text" name="contract_date" value={formData.contract_date} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">용역기한 (YYYY.MM.DD)</label>
-              <input type="text" name="service_deadline" value={formData.service_deadline} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" />
+              <input type="text" name="service_deadline" value={formData.service_deadline} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">착수일 (YYYY.MM.DD)</label>
-              <input type="text" name="start_date" value={formData.start_date} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" />
+              <input type="text" name="start_date" value={formData.start_date} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">완료일 (YYYY.MM.DD)</label>
-              <input type="text" name="completion_date" value={formData.completion_date} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" />
+              <input type="text" name="completion_date" value={formData.completion_date} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">최종 검수일자 표기 (YYYY년 MM월 DD일)</label>
-              <input type="text" name="inspection_date_report" value={formData.inspection_date_report} onChange={handleChange} className="w-full px-3 py-2 border rounded-md" placeholder="예: 2026년 7월 7일" />
+              <input type="text" name="inspection_date_report" value={formData.inspection_date_report} onChange={handleChange} className="w-full px-3 py-2 border border-slate-300 rounded-md text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="예: 2026년 7월 7일" />
             </div>
           </div>
         </div>
