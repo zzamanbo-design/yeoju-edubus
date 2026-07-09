@@ -137,7 +137,7 @@ export default async function PrintPage({ params }: PageProps) {
                 </tr>
                 <tr>
                   <th className="border border-black py-2 px-3 w-1/4 text-center font-normal">안전 서약</th>
-                  <td className="border border-black py-2 px-3 w-3/4 font-semibold text-black">버스 탑승과 관련한 안전사항을 사전 확인하고 관리하겠습니다.</td>
+                  <td className="border border-black py-2 px-3 w-3/4 font-semibold text-black">체험버스 운행 시 안전한 체험학습이 될 수 있도록 학생 대상 사전 안전교육과 버스 운행 시 안전지도를 실시하겠습니다.</td>
                 </tr>
                 <tr>
                   <th className="border border-black py-2 px-3 w-1/4 text-center font-normal">절차 확인</th>

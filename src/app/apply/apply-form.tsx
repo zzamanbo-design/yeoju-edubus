@@ -57,6 +57,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
   const [detailedOperationContent, setDetailedOperationContent] = useState(initialData?.detailed_operation_content ?? "");
   const [processConsent, setProcessConsent] = useState(!!initialData);
   const [privacyConsent, setPrivacyConsent] = useState(!!initialData);
+  const [safetyConsent, setSafetyConsent] = useState(!!initialData);
 
   // UI 상태
   const [isLoading, setIsLoading] = useState(false);
@@ -136,6 +137,11 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
       return;
     }
 
+    if (!safetyConsent) {
+      setError("학생 대상 사전 안전교육과 버스 운행 시 안전지도 실시에 동의해 주세요.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -163,6 +169,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
           officialDocNumber: officialDocNumber.trim(),
           privacyConsent,
           processConsent,
+          safetyConsent,
           detailedOperationContent: detailedOperationContent.trim(),
         }),
       });
@@ -634,6 +641,22 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                 <span className="font-bold text-blue-600">[필수]</span> 체험버스 배차 및 안내를 위한 담당자 성명 및 연락처 수집·이용에 동의합니다.
               </label>
             </div>
+
+            <div className="w-full h-px bg-slate-200/60 my-1"></div>
+
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="safetyConsent"
+                checked={safetyConsent}
+                onChange={(e) => setSafetyConsent(e.target.checked)}
+                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
+              />
+              <label htmlFor="safetyConsent" className="text-sm text-slate-700 cursor-pointer">
+                <span className="font-bold text-blue-600">[필수]</span> 체험버스 운행 시 안전한 체험학습이 될 수 있도록 학생 대상 사전 안전교육과 버스 운행 시 안전지도를 실시하겠습니다.
+              </label>
+            </div>
+
           </div>
 
           <button
