@@ -245,7 +245,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                 onChange={(e) => setSchoolId(Number(e.target.value))}
                 required
                 disabled={isLoading}
-                className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
               >
                 <option value={0}>학교를 선택하세요</option>
                 {Object.entries(groupedSchools).map(([level, list]) =>
@@ -261,7 +261,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                 )}
               </select>
             ) : (
-              <div className="w-full px-4 py-3 rounded-xl border border-input bg-muted text-foreground text-sm font-semibold">
+              <div className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 text-sm font-semibold">
                 {session.schoolName}
               </div>
             )}
@@ -285,7 +285,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                 placeholder="예: 홍길동"
                 required
                 disabled={isLoading}
-                className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
               />
             </div>
             
@@ -305,7 +305,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                 placeholder="예: 010-1234-5678"
                 required
                 disabled={isLoading}
-                className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
               />
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
               placeholder="예: 같이학교 교육과정 운영"
               required
               disabled={isLoading}
-              className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
             />
           </div>
 
@@ -348,7 +348,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
               placeholder="예: oo초등학교-1234(2026.6.1.) - 체험학습과 관련된 내부기안 번호"
               required
               disabled={isLoading}
-              className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
             />
           </div>
 
@@ -370,7 +370,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                 min={minDate}
                 required
                 disabled={isLoading}
-                className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
               />
             </div>
 
@@ -433,7 +433,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   placeholder="예: OO초등학교 정문 앞 (버스 회차 가능 구역)"
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
                 />
               </div>
               <div>
@@ -452,7 +452,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   placeholder="예: 09:00"
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
                 />
               </div>
             </div>
@@ -483,7 +483,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   placeholder="예: 신륵사 공영주차장(버스 회차 가능 구역)"
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
                 />
               </div>
               <div>
@@ -502,7 +502,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   placeholder="예: 14:00"
                   required
                   disabled={isLoading}
-                  className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
                 />
               </div>
             </div>
@@ -531,7 +531,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   placeholder="0"
                   min={0}
                   disabled={isLoading}
-                  className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
                 />
               </div>
               <div>
@@ -550,7 +550,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   placeholder="0"
                   min={0}
                   disabled={isLoading}
-                  className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
                 />
               </div>
             </div>
@@ -578,7 +578,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
               rows={3}
               required
               disabled={isLoading}
-              className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
             />
           </div>
 
@@ -599,7 +599,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
               rows={3}
               required
               disabled={isLoading}
-              className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium placeholder-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
             />
           </div>
 

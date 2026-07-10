@@ -139,7 +139,7 @@ export default async function SchoolReportPage({ params }: PageProps) {
 
         <div className="text-center mb-16 text-black text-[15px]">
           <p className="mb-10 font-bold">위와 같이 검수 하였음.</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;년 &nbsp;월 &nbsp;일</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</p>
         </div>
 
         <div className="flex justify-center mb-20 text-black">
