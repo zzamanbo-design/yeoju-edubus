@@ -17,7 +17,8 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Calculator,
-  AlertCircle
+  AlertCircle,
+  Clock
 } from "lucide-react";
 import Link from "next/link";
 
@@ -59,6 +60,11 @@ export default function DashboardClient({
 }) {
   const router = useRouter();
 
+  const pendingCount = recentRequests.filter((r) => r.status.includes("대기")).length;
+  const settlementCount = recentRequests.filter((r) => r.report_data?.admin_checked).length;
+  const matchedCount = recentRequests.filter((r) => (r.status === "승인" || r.status.includes("매칭")) && !r.report_data?.admin_checked).length;
+  const totalRuns = recentRequests.filter((r) => r.status === "승인" || r.status.includes("매칭")).length;
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans transition-colors duration-300">
       {/* Main Container */}
@@ -92,37 +98,43 @@ export default function DashboardClient({
               </div>
             </div>
 
-            {/* 파이 차트 UI */}
-            <div className="flex-shrink-0 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 flex flex-col items-center">
-              <h3 className="text-sm font-bold text-blue-50 mb-4">체험버스 운영 상황</h3>
-              <div className="relative w-32 h-32 mb-4">
-                <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                  {/* Background Circle (Available) */}
-                  <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="rgba(255,255,255,0.2)" strokeWidth="4"></circle>
-                  
-                  {/* Foreground Circle (Used) */}
-                  <circle 
-                    cx="18" 
-                    cy="18" 
-                    r="15.9155" 
-                    fill="transparent" 
-                    stroke="#fbbf24" // amber-400
-                    strokeWidth="4" 
-                    strokeDasharray={`${budgetInfo.usedCount + budgetInfo.availableCount > 0 ? (budgetInfo.usedCount / (budgetInfo.usedCount + budgetInfo.availableCount)) * 100 : 0} ${budgetInfo.usedCount + budgetInfo.availableCount > 0 ? 100 - (budgetInfo.usedCount / (budgetInfo.usedCount + budgetInfo.availableCount)) * 100 : 100}`}
-                    strokeDashoffset="0"
-                    strokeLinecap="round"
-                  ></circle>
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="text-xs text-blue-200">운영/가능</span>
-                  <span className="text-xl font-bold font-serif leading-tight">
-                    {budgetInfo.usedCount}<span className="text-sm text-blue-200">/{budgetInfo.availableCount}</span>
-                  </span>
+            {/* 4가지 주요 접수 통계 현황 */}
+            <div className="flex-shrink-0 grid grid-cols-2 gap-3 w-full max-w-sm">
+              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                <div className="p-2.5 rounded-lg bg-amber-50 text-amber-600">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-slate-500 block font-medium">신청 대기</span>
+                  <span className="text-xl font-bold text-slate-800">{pendingCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-xs font-medium">
-                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>이용됨</div>
-                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-white/30"></span>가능</div>
+              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                <div className="p-2.5 rounded-lg bg-blue-50 text-blue-600">
+                  <Bus className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-slate-500 block font-medium">매칭 완료</span>
+                  <span className="text-xl font-bold text-slate-800">{matchedCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                </div>
+              </div>
+              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                <div className="p-2.5 rounded-lg bg-indigo-50 text-indigo-600">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-slate-500 block font-medium flex flex-col leading-tight"><span>완수검사조서</span><span>제출 완료</span></span>
+                  <span className="text-xl font-bold text-slate-800">{settlementCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                </div>
+              </div>
+              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                <div className="p-2.5 rounded-lg bg-emerald-50 text-emerald-600">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-slate-500 block font-medium flex flex-col leading-tight"><span>누적 운행</span><span>(전체)</span></span>
+                  <span className="text-xl font-bold text-slate-800">{totalRuns}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                </div>
               </div>
             </div>
           </div>

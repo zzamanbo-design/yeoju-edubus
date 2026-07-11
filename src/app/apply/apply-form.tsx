@@ -63,11 +63,32 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
+  const [selectedPeriod, setSelectedPeriod] = useState<number | null>(
+    initialData?.trip_date ? parseInt(initialData.trip_date.split("-")[1], 10) : null
+  );
 
   // 최소 날짜: 오늘 + 21일 (3주)
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 21);
-  const minDate = tomorrow.toISOString().split("T")[0];
+  const globalMinDate = tomorrow.toISOString().split("T")[0];
+  const currentYear = tomorrow.getFullYear();
+
+  const periods = [8, 9, 10, 11];
+
+  const handlePeriodSelect = (period: number) => {
+    setSelectedPeriod(period);
+    setTripDate(""); // 기수 변경 시 날짜 초기화
+  };
+
+  const getMonthMaxDate = (month: number) => {
+    const lastDay = new Date(currentYear, month, 0).getDate();
+    return `${currentYear}-${String(month).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
+  };
+
+  const getMonthMinDate = (month: number) => {
+    const firstDay = `${currentYear}-${String(month).padStart(2, "0")}-01`;
+    return globalMinDate > firstDay ? globalMinDate : firstDay;
+  };
 
   // 토스트 표시 후 리다이렉트
   useEffect(() => {
@@ -355,23 +376,53 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
           {/* 희망 날짜 + 버스 규격 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-card border border-border rounded-xl p-6">
-              <label
-                htmlFor="tripDate"
-                className="text-sm font-bold text-foreground flex items-center gap-2 mb-3"
-              >
+              <label className="text-sm font-bold text-foreground flex items-center gap-2 mb-3">
                 <Calendar className="w-4 h-4 text-primary" />
-                희망 날짜 <span className="text-xs font-normal text-muted-foreground ml-1 hidden sm:inline">(버스 계약을 위해 최소 3주 전 신청)</span> <span className="text-destructive">*</span>
+                신청 기수 선택 <span className="text-xs font-normal text-muted-foreground ml-1 hidden sm:inline">(버스 계약을 위해 최소 3주 전 신청)</span> <span className="text-destructive">*</span>
               </label>
-              <input
-                id="tripDate"
-                type="date"
-                value={tripDate}
-                onChange={(e) => setTripDate(e.target.value)}
-                min={minDate}
-                required
-                disabled={isLoading}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
-              />
+              
+              <div className="grid grid-cols-4 gap-2 mb-4">
+                {periods.map((p) => {
+                  const isPeriodDisabled = globalMinDate > getMonthMaxDate(p);
+                  return (
+                    <button
+                      key={p}
+                      type="button"
+                      disabled={isPeriodDisabled || isLoading}
+                      onClick={() => handlePeriodSelect(p)}
+                      className={`py-2 rounded-lg border text-sm font-semibold transition-all ${
+                        selectedPeriod === p
+                          ? "border-primary bg-primary/10 text-primary ring-2 ring-primary/30"
+                          : "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary/30"
+                      } disabled:opacity-40 disabled:cursor-not-allowed`}
+                    >
+                      {p}월
+                    </button>
+                  );
+                })}
+              </div>
+
+              {selectedPeriod && (
+                <div className="mt-4 pt-4 border-t border-border animate-in fade-in slide-in-from-top-2">
+                  <label
+                    htmlFor="tripDate"
+                    className="text-sm font-bold text-foreground flex items-center gap-2 mb-3"
+                  >
+                    희망 날짜 <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    id="tripDate"
+                    type="date"
+                    value={tripDate}
+                    onChange={(e) => setTripDate(e.target.value)}
+                    min={getMonthMinDate(selectedPeriod)}
+                    max={getMonthMaxDate(selectedPeriod)}
+                    required
+                    disabled={isLoading}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
+                  />
+                </div>
+              )}
             </div>
 
             <div className="bg-card border border-border rounded-xl p-6">
