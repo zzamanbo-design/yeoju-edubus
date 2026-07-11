@@ -374,8 +374,8 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
           </div>
 
           {/* 희망 날짜 + 버스 규격 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-card border border-border rounded-xl p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div className="bg-card border border-border rounded-xl p-6 sm:col-span-3">
               <label className="text-sm font-bold text-foreground flex items-center gap-2 mb-3">
                 <Calendar className="w-4 h-4 text-primary" />
                 신청 기수 선택 <span className="text-xs font-normal text-muted-foreground ml-1 hidden sm:inline">(버스 계약을 위해 최소 3주 전 신청)</span> <span className="text-destructive">*</span>
@@ -425,12 +425,12 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
               )}
             </div>
 
-            <div className="bg-card border border-border rounded-xl p-6">
+            <div className="bg-card border border-border rounded-xl p-6 sm:col-span-1">
               <label className="text-sm font-bold text-foreground flex items-center gap-2 mb-3">
                 <Bus className="w-4 h-4 text-primary" />
                 버스 규격 <span className="text-destructive">*</span>
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3">
                 <button
                   type="button"
                   onClick={() => setBusType("중형")}

@@ -99,41 +99,44 @@ export default function DashboardClient({
             </div>
 
             {/* 4가지 주요 접수 통계 현황 */}
-            <div className="flex-shrink-0 grid grid-cols-2 gap-3 w-full max-w-sm">
-              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
-                <div className="p-2.5 rounded-lg bg-amber-50 text-amber-600">
-                  <Clock className="w-5 h-5" />
+            <div className="flex-shrink-0 flex flex-col gap-3 w-full max-w-sm">
+              <h3 className="text-sm font-bold text-blue-50 text-center mb-1">여주 체험버스 신청현황</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                  <div className="p-2.5 rounded-lg bg-amber-50 text-amber-600">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] text-slate-500 block font-medium">신청 대기</span>
+                    <span className="text-xl font-bold text-slate-800">{pendingCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[11px] text-slate-500 block font-medium">신청 대기</span>
-                  <span className="text-xl font-bold text-slate-800">{pendingCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                  <div className="p-2.5 rounded-lg bg-blue-50 text-blue-600">
+                    <Bus className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] text-slate-500 block font-medium">매칭 완료</span>
+                    <span className="text-xl font-bold text-slate-800">{matchedCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
-                <div className="p-2.5 rounded-lg bg-blue-50 text-blue-600">
-                  <Bus className="w-5 h-5" />
+                <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                  <div className="p-2.5 rounded-lg bg-indigo-50 text-indigo-600">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] text-slate-500 block font-medium flex flex-col leading-tight"><span>완수검사조서</span><span>제출 완료</span></span>
+                    <span className="text-xl font-bold text-slate-800">{settlementCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[11px] text-slate-500 block font-medium">매칭 완료</span>
-                  <span className="text-xl font-bold text-slate-800">{matchedCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
-                </div>
-              </div>
-              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
-                <div className="p-2.5 rounded-lg bg-indigo-50 text-indigo-600">
-                  <FileText className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-[11px] text-slate-500 block font-medium flex flex-col leading-tight"><span>완수검사조서</span><span>제출 완료</span></span>
-                  <span className="text-xl font-bold text-slate-800">{settlementCount}<span className="text-[10px] font-normal ml-0.5">건</span></span>
-                </div>
-              </div>
-              <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
-                <div className="p-2.5 rounded-lg bg-emerald-50 text-emerald-600">
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-[11px] text-slate-500 block font-medium flex flex-col leading-tight"><span>누적 운행</span><span>(전체)</span></span>
-                  <span className="text-xl font-bold text-slate-800">{totalRuns}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
+                  <div className="p-2.5 rounded-lg bg-emerald-50 text-emerald-600">
+                    <CheckCircle2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] text-slate-500 block font-medium flex flex-col leading-tight"><span>누적 운행</span><span>(전체)</span></span>
+                    <span className="text-xl font-bold text-slate-800">{totalRuns}<span className="text-[10px] font-normal ml-0.5">건</span></span>
+                  </div>
                 </div>
               </div>
             </div>
