@@ -100,7 +100,9 @@ export default function DashboardClient({
 
             {/* 4가지 주요 접수 통계 현황 */}
             <div className="flex-shrink-0 flex flex-col gap-3 w-full max-w-sm">
-              <h3 className="text-sm font-bold text-blue-50 text-center mb-1">여주 체험버스 신청현황</h3>
+              <h3 className="text-lg font-extrabold text-white text-center mb-1 tracking-wide flex items-center justify-center gap-2">
+                🚌 여주 체험버스 신청현황 📊
+              </h3>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-white border border-slate-200/60 p-4 rounded-xl flex items-center gap-3 transition-all hover:shadow-md">
                   <div className="p-2.5 rounded-lg bg-amber-50 text-amber-600">
