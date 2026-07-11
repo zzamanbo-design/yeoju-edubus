@@ -61,7 +61,7 @@ export async function toggleReportSubmitted(requestId: number, isSubmitted: bool
 
   // 완수검사조서 제출 완료 시 개인정보(연락처) 익명화 처리
   if (isSubmitted) {
-    updatePayload.applicant_contact = "010-0000-0000";
+    updatePayload.applicant_phone = "010-0000-0000";
   }
 
   const { error } = await supabase
