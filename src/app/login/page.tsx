@@ -7,10 +7,15 @@ export default async function LoginPage() {
   const supabase = createServerClient();
   
   const { data: schools } = await supabase
-    .from("bus_accounts")
-    .select("login_id, school_name")
-    .eq("role", "school")
+    .from("schools")
+    .select("school_name")
     .order("school_name", { ascending: true });
 
-  return <LoginClient schools={schools || []} />;
+  const formattedSchools = schools?.map((s) => ({
+    login_id: s.school_name,
+    school_name: s.school_name,
+  })) || [];
+
+  return <LoginClient schools={formattedSchools} />;
 }
+
