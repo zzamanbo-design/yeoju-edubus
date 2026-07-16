@@ -56,7 +56,9 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
   const [notes, setNotes] = useState(initialData?.notes ?? "");
   const [detailedOperationContent, setDetailedOperationContent] = useState(initialData?.detailed_operation_content ?? "");
   const [processConsent, setProcessConsent] = useState(!!initialData);
-  const [privacyConsent, setPrivacyConsent] = useState(!!initialData);
+  const [privacy1, setPrivacy1] = useState<boolean | null>(initialData ? true : null);
+  const [privacy2, setPrivacy2] = useState<boolean | null>(initialData ? true : null);
+  const [privacy3, setPrivacy3] = useState<boolean | null>(initialData ? true : null);
   const [safetyConsent, setSafetyConsent] = useState(!!initialData);
 
   // UI 상태
@@ -149,12 +151,12 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
     }
 
     if (!processConsent) {
-      setError("체험버스 신청 절차와 결과보고서 제출 과정에 동의해 주세요.");
+      setError("체험버스 신청 절차 및 결과보고서 제출에 동의해 주세요.");
       return;
     }
 
-    if (!privacyConsent) {
-      setError("체험버스 배차 및 안내를 위한 개인정보 수집·이용에 동의해 주세요.");
+    if (privacy1 !== true || privacy2 !== true || privacy3 !== true) {
+      setError("개인정보 수집·이용·제공 및 고유식별정보 처리에 모두 동의해 주세요.");
       return;
     }
 
@@ -188,7 +190,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
           applicantPhone: applicantPhone.trim(),
           usagePurpose: usagePurpose.trim(),
           officialDocNumber: officialDocNumber.trim(),
-          privacyConsent,
+          privacyConsent: true,
           processConsent,
           safetyConsent,
           detailedOperationContent: detailedOperationContent.trim(),
@@ -664,50 +666,111 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
 
         {/* 개인정보 및 절차 동의 영역, 제출 버튼 */}
         <div className="pt-8 border-t border-slate-200">
-          <div className="mb-6 bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-4">
-            <div className="flex items-start gap-3">
-              <input
-                type="checkbox"
-                id="processConsent"
-                checked={processConsent}
-                onChange={(e) => setProcessConsent(e.target.checked)}
-                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
-              />
-              <label htmlFor="processConsent" className="text-sm text-slate-700 cursor-pointer">
-                <span className="font-bold text-blue-600">[필수]</span> 체험버스 신청 절차와 결과보고서 제출 과정을 이해했습니다.
-              </label>
-            </div>
+          <div className="mb-8 flex flex-col gap-6">
             
-            <div className="w-full h-px bg-slate-200/60 my-1"></div>
+            {/* 개인정보 동의서 (이미지 참고 구조) */}
+            <div className="bg-white border border-slate-300 rounded-xl p-6 sm:p-8 shadow-sm">
+              <h4 className="text-xl sm:text-2xl font-black text-center mb-8 tracking-tight text-slate-900 border-b border-slate-200 pb-4">개인정보 수집·이용·제공 및 고유식별정보 처리에 관한 동의서</h4>
+              
+              <div className="text-sm font-medium text-slate-800 space-y-3 mb-8">
+                <p>1. 수집·이용 목적: 경기도여주교육지원청 여주체험버스 신청</p>
+                <p>2. 수집 항목: 이름, 연락처</p>
+                <p>3. 보유·이용기간: 학교의 신청부터 여주체험버스 완수검사 조서 확인까지 (검사조서 제출확인 후 자동 익명화)</p>
+              </div>
 
-            <div className="flex items-start gap-3">
-              <input
-                type="checkbox"
-                id="privacy"
-                checked={privacyConsent}
-                onChange={(e) => setPrivacyConsent(e.target.checked)}
-                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
-              />
-              <label htmlFor="privacy" className="text-sm text-slate-700 cursor-pointer">
-                <span className="font-bold text-blue-600">[필수]</span> 체험버스 배차 및 안내를 위한 담당자 성명 및 연락처 수집·이용에 동의합니다.
-              </label>
+              <div className="mb-3">
+                <span className="text-sm font-bold text-slate-800 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded">
+                  [고유식별정보를 포함한 개인정보 수집·이용·제공 동의/미동의 자필 서명란]
+                </span>
+              </div>
+              
+              <div className="overflow-x-auto rounded-lg border border-slate-300">
+                <table className="w-full border-collapse text-sm text-center min-w-[700px] bg-white">
+                  <thead className="bg-slate-100 text-slate-800 font-bold border-b border-slate-300">
+                    <tr>
+                      <th className="border-r border-slate-300 py-3 px-2 w-[15%]">성명</th>
+                      <th className="border-r border-slate-300 py-3 px-2 w-[12%]">관계</th>
+                      <th className="border-r border-slate-300 py-3 px-2 w-[22%]">1. 수집·이용</th>
+                      <th className="border-r border-slate-300 py-3 px-2 w-[22%]">2. 제공</th>
+                      <th className="py-3 px-2 w-[29%]">3. 고유식별정보처리</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border-r border-slate-300 py-5 px-2 font-bold text-slate-800 bg-slate-50">{applicantName || "신청자 이름"}</td>
+                      <td className="border-r border-slate-300 py-5 px-2 font-medium">본인</td>
+                      <td className="border-r border-slate-300 py-5 px-2">
+                        <div className="flex items-center justify-center gap-4">
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="privacy1" checked={privacy1 === true} onChange={() => setPrivacy1(true)} className="w-4 h-4 text-primary focus:ring-primary cursor-pointer" /> 
+                            <span className="font-medium text-slate-700">동의</span>
+                          </label>
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="privacy1" checked={privacy1 === false} onChange={() => setPrivacy1(false)} className="w-4 h-4 text-destructive focus:ring-destructive cursor-pointer" /> 
+                            <span className="font-medium text-slate-700">미동의</span>
+                          </label>
+                        </div>
+                      </td>
+                      <td className="border-r border-slate-300 py-5 px-2">
+                        <div className="flex items-center justify-center gap-4">
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="privacy2" checked={privacy2 === true} onChange={() => setPrivacy2(true)} className="w-4 h-4 text-primary focus:ring-primary cursor-pointer" /> 
+                            <span className="font-medium text-slate-700">동의</span>
+                          </label>
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="privacy2" checked={privacy2 === false} onChange={() => setPrivacy2(false)} className="w-4 h-4 text-destructive focus:ring-destructive cursor-pointer" /> 
+                            <span className="font-medium text-slate-700">미동의</span>
+                          </label>
+                        </div>
+                      </td>
+                      <td className="py-5 px-2">
+                        <div className="flex items-center justify-center gap-4">
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="privacy3" checked={privacy3 === true} onChange={() => setPrivacy3(true)} className="w-4 h-4 text-primary focus:ring-primary cursor-pointer" /> 
+                            <span className="font-medium text-slate-700">동의</span>
+                          </label>
+                          <label className="flex items-center gap-1.5 cursor-pointer">
+                            <input type="radio" name="privacy3" checked={privacy3 === false} onChange={() => setPrivacy3(false)} className="w-4 h-4 text-destructive focus:ring-destructive cursor-pointer" /> 
+                            <span className="font-medium text-slate-700">미동의</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <div className="w-full h-px bg-slate-200/60 my-1"></div>
+            {/* 필수 절차/안전 동의 */}
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col gap-4">
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="processConsent"
+                  checked={processConsent}
+                  onChange={(e) => setProcessConsent(e.target.checked)}
+                  className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
+                />
+                <label htmlFor="processConsent" className="text-sm text-slate-700 cursor-pointer font-medium">
+                  <span className="font-bold text-blue-600 mr-1">[필수]</span> 체험버스 신청 절차와 결과보고서 제출 과정을 이해했습니다.
+                </label>
+              </div>
+              
+              <div className="w-full h-px bg-slate-200/60 my-1"></div>
 
-            <div className="flex items-start gap-3">
-              <input
-                type="checkbox"
-                id="safetyConsent"
-                checked={safetyConsent}
-                onChange={(e) => setSafetyConsent(e.target.checked)}
-                className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
-              />
-              <label htmlFor="safetyConsent" className="text-sm text-slate-700 cursor-pointer">
-                <span className="font-bold text-blue-600">[필수]</span> 체험버스 운행 시 안전한 체험학습이 될 수 있도록 학생 대상 사전 안전교육과 버스 운행 시 안전지도를 실시하겠습니다.
-              </label>
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="safetyConsent"
+                  checked={safetyConsent}
+                  onChange={(e) => setSafetyConsent(e.target.checked)}
+                  className="mt-1 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer shrink-0"
+                />
+                <label htmlFor="safetyConsent" className="text-sm text-slate-700 cursor-pointer font-medium leading-relaxed">
+                  <span className="font-bold text-blue-600 mr-1">[필수]</span> 체험버스 운행 시 안전한 체험학습이 될 수 있도록 학생 대상 사전 안전교육과 버스 운행 시 안전지도를 실시하겠습니다.
+                </label>
+              </div>
             </div>
-
           </div>
 
           <button
