@@ -698,7 +698,7 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   <tbody>
                     <tr>
                       <td className="border-r border-slate-300 py-5 px-2 font-bold text-slate-800 bg-slate-50">{applicantName || "신청자 이름"}</td>
-                      <td className="border-r border-slate-300 py-5 px-2 font-medium">본인</td>
+                      <td className="border-r border-slate-300 py-5 px-2 font-medium text-slate-800">본인</td>
                       <td className="border-r border-slate-300 py-5 px-2">
                         <div className="flex items-center justify-center gap-4">
                           <label className="flex items-center gap-1.5 cursor-pointer">
