@@ -689,16 +689,14 @@ export default function ApplyForm({ session, schools, initialData }: Props) {
                   <thead className="bg-slate-100 text-slate-800 font-bold border-b border-slate-300">
                     <tr>
                       <th className="border-r border-slate-300 py-3 px-2 w-[15%]">성명</th>
-                      <th className="border-r border-slate-300 py-3 px-2 w-[12%]">관계</th>
-                      <th className="border-r border-slate-300 py-3 px-2 w-[22%]">1. 수집·이용</th>
-                      <th className="border-r border-slate-300 py-3 px-2 w-[22%]">2. 제공</th>
-                      <th className="py-3 px-2 w-[29%]">3. 고유식별정보처리</th>
+                      <th className="border-r border-slate-300 py-3 px-2 w-[25%]">1. 수집·이용</th>
+                      <th className="border-r border-slate-300 py-3 px-2 w-[25%]">2. 제공</th>
+                      <th className="py-3 px-2 w-[35%]">3. 고유식별정보처리</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td className="border-r border-slate-300 py-5 px-2 font-bold text-slate-800 bg-slate-50">{applicantName || "신청자 이름"}</td>
-                      <td className="border-r border-slate-300 py-5 px-2 font-medium text-slate-800">본인</td>
                       <td className="border-r border-slate-300 py-5 px-2">
                         <div className="flex items-center justify-center gap-4">
                           <label className="flex items-center gap-1.5 cursor-pointer">
