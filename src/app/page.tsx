@@ -40,7 +40,7 @@ export default async function Home() {
 
   const { data: allRequests } = await supabase
     .from("bus_requests")
-    .select("status, contracted_cost");
+    .select("status, contracted_cost, report_data");
 
   const approvedRequests = (allRequests || []).filter((r) => r.status === "승인" || r.status === "승인완료");
   const approvedCount = approvedRequests.length;
@@ -54,5 +54,17 @@ export default async function Home() {
     availableCount: availableCount
   };
 
-  return <DashboardClient session={session} recentRequests={recentRequests || []} budgetInfo={budgetInfo} />;
+  const pendingCount = (allRequests || []).filter((r) => r.status.includes("대기")).length;
+  const settlementCount = (allRequests || []).filter((r) => (r.report_data as any)?.admin_checked).length;
+  const matchedCount = (allRequests || []).filter((r) => (r.status === "승인" || r.status.includes("매칭")) && !(r.report_data as any)?.admin_checked).length;
+  const totalRuns = (allRequests || []).filter((r) => r.status === "승인" || r.status.includes("매칭")).length;
+
+  const dashboardStats = {
+    pendingCount,
+    settlementCount,
+    matchedCount,
+    totalRuns
+  };
+
+  return <DashboardClient session={session} recentRequests={recentRequests || []} budgetInfo={budgetInfo} dashboardStats={dashboardStats} />;
 }

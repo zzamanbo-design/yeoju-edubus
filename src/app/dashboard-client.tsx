@@ -52,18 +52,22 @@ interface BudgetInfo {
 export default function DashboardClient({ 
   session, 
   recentRequests = [],
-  budgetInfo = { usedCount: 0, availableCount: 0 }
+  budgetInfo = { usedCount: 0, availableCount: 0 },
+  dashboardStats = { pendingCount: 0, settlementCount: 0, matchedCount: 0, totalRuns: 0 }
 }: { 
   session: SessionUser;
   recentRequests?: any[];
   budgetInfo?: BudgetInfo;
+  dashboardStats?: {
+    pendingCount: number;
+    settlementCount: number;
+    matchedCount: number;
+    totalRuns: number;
+  };
 }) {
   const router = useRouter();
 
-  const pendingCount = recentRequests.filter((r) => r.status.includes("대기")).length;
-  const settlementCount = recentRequests.filter((r) => r.report_data?.admin_checked).length;
-  const matchedCount = recentRequests.filter((r) => (r.status === "승인" || r.status.includes("매칭")) && !r.report_data?.admin_checked).length;
-  const totalRuns = recentRequests.filter((r) => r.status === "승인" || r.status.includes("매칭")).length;
+  const { pendingCount, settlementCount, matchedCount, totalRuns } = dashboardStats;
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans transition-colors duration-300">
