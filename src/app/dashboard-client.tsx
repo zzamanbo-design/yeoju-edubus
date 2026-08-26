@@ -69,11 +69,43 @@ export default function DashboardClient({
 
   const { pendingCount, settlementCount, matchedCount, totalRuns } = dashboardStats;
 
+  const handleApplyClick = () => {
+    if (session.role === "admin") {
+      router.push("/apply");
+    } else {
+      alert(
+        '2026학년도 여주시와 함께 하는 학교맞춤형 공유학교 예산으로 지원한 "여주 체험버스" 예산이 모두 소진되었습니다. 2027년에 다시 기획하여 학교를 지원하겠습니다.'
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans transition-colors duration-300">
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
         
+        {/* 예산 소진 안내 배너 (학교 계정 로그인 시 표시) */}
+        {session.role !== "admin" && (
+          <div className="bg-amber-500/10 border-2 border-amber-500/40 rounded-2xl p-5 md:p-6 flex items-start gap-4 shadow-sm text-slate-800 dark:text-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="p-2.5 rounded-xl bg-amber-500 text-white shrink-0 shadow-sm mt-0.5">
+              <AlertCircle className="w-6 h-6" />
+            </div>
+            <div className="flex-1 flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 text-xs font-bold bg-amber-500/20 text-amber-800 dark:text-amber-300 rounded-full">
+                  안내
+                </span>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                  2026학년도 여주 체험버스 예산 소진 안내
+                </h3>
+              </div>
+              <p className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-200 leading-relaxed break-keep">
+                2026학년도 여주시와 함께 하는 학교맞춤형 공유학교 예산으로 지원한 &quot;여주 체험버스&quot; 예산이 모두 소진되었습니다. 2027년에 다시 기획하여 학교를 지원하겠습니다.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Welcome Banner Card */}
         <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-accent text-primary-foreground p-8 md:p-10 shadow-xl shadow-primary/10">
           <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-12 translate-y-12">
@@ -82,8 +114,8 @@ export default function DashboardClient({
           
           <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-8">
             <div className="max-w-2xl flex flex-col gap-4">
-              <span className="inline-flex self-start items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary text-secondary-foreground shadow-sm">
-                ✨ 2026학년도 체험학습 접수 중
+              <span className="inline-flex self-start items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-400 text-amber-950 shadow-sm">
+                📢 2026학년도 예산 소진 안내
               </span>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
                 여주 관내 학교들의<br className="sm:hidden" /> 안전한 체험학습 이동을 지원합니다.
@@ -93,7 +125,7 @@ export default function DashboardClient({
               </p>
               <div className="flex flex-wrap gap-3 mt-4">
                 <button
-                  onClick={() => router.push("/apply")}
+                  onClick={handleApplyClick}
                   className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-xl text-lg shadow-md hover:bg-secondary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Plus className="w-5 h-5" />

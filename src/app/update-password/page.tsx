@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
@@ -65,7 +65,7 @@ export default function UpdatePasswordPage() {
       if (data.role === "admin") {
         router.push("/admin");
       } else {
-        router.push("/apply");
+        router.push("/");
       }
       router.refresh();
     } catch {
